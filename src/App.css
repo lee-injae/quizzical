@@ -1,0 +1,13 @@
+.answer-container {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.answer {
+  margin-right: 1em;
+}
+
+.start-page {
+  /* display: none; */
+}
