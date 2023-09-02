@@ -1,19 +1,39 @@
 import React from "react"
-
+import Answers from "./Answers"
 import { decode } from 'html-entities';
 
 export default function Questions(props){
-    const {question, correct_answer, incorrect_answers} = props.questionObj
+    // console.log(props.questionObj)
+    const {question, correct_answer, incorrect_answers, allAnswers} = props.questionObj
 
     const styles = {
         color: props.isSelected ? "green" : "white"
     }
 
-    const answerElements = props.shuffledAnswers.map( (answer, index) => (
-        <p key={index} className="answer">
-            {decode(answer)}
-        </p>
+    function handleClick(id, isSelected){
+        console.log(id, isSelected)
+
+    }
+
+    const newAnswerObjectsArray = allAnswers.map( (answer, index) => {
+        return {
+            id: index,
+            value: answer,
+            isSelected: false
+        }
+    })
+
+
+    const answerElements = newAnswerObjectsArray.map( (answerObj) => (
+        <Answers 
+            key={answerObj.index} 
+            answer={answerObj.value}
+            isSelected={answerObj.isSelected}
+            handleClick={() => handleClick(answerObj.id, answerObj.isSelected)}
+        />
     ))
+
+    
 
     //highlight selected answer 
 
@@ -28,7 +48,7 @@ export default function Questions(props){
             <div className="question-container">
                 Questions: {decode(question)}
             </div>
-            <div onClick={(e) => props.handleIsSelected(e)} className="answer-container">
+            <div className="answer-container">
                 Answers: {answerElements}
             </div>
         </div>

@@ -1,9 +1,21 @@
 import React from "react"
 
-export default function Answers(){
+import { decode } from 'html-entities';
+
+
+export default function Answers(props){
+
+    console.log("props: ", props)
+
+
     return(
-        <div>
-            
+        <div className="answers-container">
+            <p 
+                className="answer" 
+                onClick={props.handleClick}
+           >
+            {decode(props.answer)}
+        </p>
         </div>
     )
 }
