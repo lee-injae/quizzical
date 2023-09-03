@@ -10,26 +10,12 @@ export default function Questions(props){
         color: props.isSelected ? "green" : "white"
     }
 
-    function handleClick(id, isSelected){
-        console.log(id, isSelected)
-
-    }
-
-    const newAnswerObjectsArray = allAnswers.map( (answer, index) => {
-        return {
-            id: index,
-            value: answer,
-            isSelected: false
-        }
-    })
-
-
-    const answerElements = newAnswerObjectsArray.map( (answerObj) => (
+    const answerElements = allAnswers.map( (answerObj) => (
         <Answers 
             key={answerObj.index} 
             answer={answerObj.value}
             isSelected={answerObj.isSelected}
-            handleClick={() => handleClick(answerObj.id, answerObj.isSelected)}
+            handleClick={props.handleClick}
         />
     ))
 
