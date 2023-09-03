@@ -5,7 +5,7 @@ import { decode } from 'html-entities';
 
 export default function Answers(props){
 
-    console.log("props: ", props)
+    // console.log("props: ", props)
 
     const styles = {
         color: props.isSelected ? "green" : "white"

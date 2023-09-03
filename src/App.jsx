@@ -56,40 +56,20 @@ function App() {
     setIsGameOn(prevState => !prevState)
   }
 
-  const array = [1, 30, 39, 29, 10, 13];
-
-const isBelowThreshold = (currentValue) => currentValue < 40;
-
-console.log(array.every(isBelowThreshold));
-// Output: true, because all numbers in the array are less than 40.
-
-
   function handleClick(e){
     const clickedValue = e.target.textContent;
     
-    
-
-    setQuestionsArr(prevQuestionsArr => prevQuestionsArr.map(questionObj => ({
-      ...questionObj,
-      allAnswers: questionObj.allAnswers.map(answer => (
-        answer.value === clickedValue    
-          ? { ...answer, isSelected: !answer.isSelected } 
-          : answer
-      ))
-    })));
-  }
-  
-  function handleClick(e){
-    const clickedValue = e.target.textContent;
-
-    setQuestionsArr(prevQuestionsArr => prevQuestionsArr.map(questionObj => ({
-      ...questionObj, 
-      allAnswers: questionObj.allAnswers.map(answer => (
-        answer.value === clickedValue
-          ? {...answer, isSelected: !answer.isSelected} 
-          : answer 
+      setQuestionsArr(prevQuestionsArr => prevQuestionsArr.map(questionObj => ({
+        ...questionObj,
+        allAnswers: questionObj.allAnswers.map(answer => (
+          answer.value === clickedValue    
+            ? { ...answer, isSelected: true } 
+            : {...answer, isSelected: false}
         ))
-    })))
+      })));
+      // setIsSelected(prevState => !prevState)
+      // console.log(isSelected)
+    
   }
 
   const questionEl = questionsArr.map(questionObj => (
