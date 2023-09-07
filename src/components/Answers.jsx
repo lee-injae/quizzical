@@ -1,14 +1,22 @@
 import React from "react"
 
-import { decode } from 'html-entities';
-
-
 export default function Answers(props){
 
-    // console.log("props: ", props)
+    console.log("props: ", props)
+    
+    function colorPick(stringIndicator){
+        if (stringIndicator === "true") {
+            return "purple"
+        } else if (stringIndicator === "false") {
+            return "red"
+        }
+    }
+    
 
     const styles = {
-        color: props.isSelected ? "green" : "white"
+        color: props.isSelected ? "green" : "white",
+        background: colorPick(props.answerObj.markedCorrect),
+
     }
 
 
@@ -19,7 +27,7 @@ export default function Answers(props){
                 onClick={props.handleClick}
                 style={styles}
            >
-            {decode(props.answer)}
+            {props.answer}
         </p>
         </div>
     )

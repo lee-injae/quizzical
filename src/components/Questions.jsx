@@ -3,7 +3,7 @@ import Answers from "./Answers"
 import { decode } from 'html-entities';
 
 export default function Questions(props){
-    // console.log(props.questionObj)
+    console.log("props.questions ", props.questionObj)
     const {question, correct_answer, incorrect_answers, allAnswers} = props.questionObj
 
     // const styles = {
@@ -11,13 +11,14 @@ export default function Questions(props){
     // }
 
 
-
+    // console.log("allanswrs", allAnswers)
     const answerElements = allAnswers.map( (answerObj) => (
         <Answers 
             key={Math.random()}
             answer={answerObj.value}
             isSelected={answerObj.isSelected}
             handleClick={props.handleClick}
+            answerObj={answerObj}
         />
     ))
 

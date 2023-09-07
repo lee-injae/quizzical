@@ -1,5 +1,7 @@
 import React from 'react'
 import { nanoid } from "nanoid"
+import { decode } from 'html-entities';
+
 
 import Questions from "./components/Questions"
 
@@ -8,14 +10,15 @@ import './App.css'
 function App() {
 
   const [questionsArr, setQuestionsArr] = React.useState([])
-  const [isGameOn, setIsGameOn] = React.useState(false)
+  const [isQuizOn, setIsQuizOn] = React.useState(false)
+  const [isQuizChecked, setIsQuizChecked] = React.useState(false)
   // const [isSelected, setIsSelected] = React.useState(false)
   const [correctAnswerArr, setCorrectAnswerArr] = React.useState([])
   const [selectedAnswerArr, setSelectedAnswerArr] = React.useState([])
-  
+  const [counter, setCounter] = React.useState(0)
   
   React.useEffect(() => {
-    const url = "https://opentdb.com/api.php?amount=5&category=23&type=multiple"
+    const url = "https://opentdb.com/api.php?amount=5&category=23&difficulty=easy&&type=multiple"
 
     fetch(url)
     .then(res => res.json())
@@ -25,7 +28,7 @@ function App() {
       const correctAnswers = []
 
       const questionsWithShuffledAnswerObjects = data.results.map(question => {
-        correctAnswers.push(question.correct_answer)
+        correctAnswers.push(decode(question.correct_answer))
         
         const allAnswers = [...question.incorrect_answers]
         const randNum = Math.floor(Math.random() * 4)
@@ -34,7 +37,7 @@ function App() {
         const newAnswerObjectsArray = allAnswers.map( (answer, index ) => {
           return {
             id: index,
-            value: answer,
+            value: decode(answer),
             isSelected: false,
             markedCorrect: ""
           }
@@ -54,8 +57,12 @@ function App() {
       })
   }, [])
    
-  function handleIsGameOn(){
-    setIsGameOn(prevState => !prevState)
+  function handleIsQuizOn(){
+    setIsQuizOn(prevState => !prevState)
+  }
+
+  function handleIsQuizChecked(){
+    setIsQuizChecked(prevState => !prevState)
   }
 
   function handleClick(e, questionId){
@@ -91,17 +98,27 @@ function App() {
       return selectedAnswers.concat(selectedValues)
       }, [])
     console.log("select", select)
-    console.log(correctAnswerArr)
+    console.log("correct answers: ", correctAnswerArr)
     
-    for (let choice of select) {
-      if (correctAnswerArr.includes(choice)){
-        
-      }
-    }
-    // const checked = correctAnswerArr.find(correctAnswer => correctAnswer === choice)
+    
 
-    const contained = correctAnswerArr.includes(select)
-    
+    setQuestionsArr(prevQuestionArr => 
+      prevQuestionArr.map(questionObj => {
+      const updatedAnswers = questionObj.allAnswers.map(answer => {
+          if (answer.isSelected && correctAnswerArr.includes(answer.value)) {
+            setCounter(prevCount => prevCount + 1)
+            return {...answer, markedCorrect: "true"}
+          } else if (answer.isSelected && !correctAnswerArr.includes(answer.value)) {
+            return {...answer, markedCorrect: "false"}
+          } else {
+            return answer
+          }
+      })
+      return {...questionObj, allAnswers:updatedAnswers}
+    }))
+
+    console.log("counter: ", counter)
+    handleIsQuizChecked()
   }
 
   const questionEl = questionsArr.map(questionObj => (
@@ -114,7 +131,7 @@ function App() {
   ))
 
   const styles = {
-    display: isGameOn && "none" 
+    display: isQuizOn && "none" 
   }
 
   return (
@@ -122,20 +139,28 @@ function App() {
       <div className='start-page' style={styles}>
         <h1 className='title'>Quizzical</h1>
         <button className='start-btn'
-            onClick={handleIsGameOn}
+            onClick={handleIsQuizOn}
         >
           start quiz
         </button>
       </div>
       <div>
-      {isGameOn && questionEl}
-      {isGameOn && 
+      {isQuizOn && questionEl}
+      {isQuizOn && 
         <button 
           className='check-answers-btn'
           onClick={handleBtnClick}
           >
             Check answers
         </button>}
+
+        {isQuizChecked && 
+        
+        <div>
+            <h3>You scored {counter}   correct answers</h3>
+            <button></button>
+        </div> }
+
       </div>
 
     </>
