@@ -6,13 +6,15 @@ export default function Questions(props){
     // console.log(props.questionObj)
     const {question, correct_answer, incorrect_answers, allAnswers} = props.questionObj
 
-    const styles = {
-        color: props.isSelected ? "green" : "white"
-    }
+    // const styles = {
+    //     color: props.isSelected ? "green" : "white"
+    // }
+
+
 
     const answerElements = allAnswers.map( (answerObj) => (
         <Answers 
-            key={answerObj.index} 
+            key={Math.random()}
             answer={answerObj.value}
             isSelected={answerObj.isSelected}
             handleClick={props.handleClick}
