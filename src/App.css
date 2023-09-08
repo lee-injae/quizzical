@@ -1,13 +1,142 @@
+body {
+  background-color: #F5F7FB;
+
+}
+
+.app-container {
+  margin: 0 auto;
+  max-width: 800px;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  color: #293264;
+  line-height: 1.187rem;
+}
+
+.qa-container {
+  border-bottom: #DFDEF0 solid 2px;
+  margin-top: 1em;  
+}
+
+.question {
+  font-weight: 700;
+}
+
 .answer-container {
   display: flex;
   flex-direction: row;
-  
 }
 
 .answer {
+  display: inline-block;
   margin-right: 1em;
+  border-radius: 8px;
+  border: #293264 1.5px solid;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.5s, transform 0.3s;
+
+}
+
+.answer:hover {
+  background-color: #4D5B9E ;
+  color:#F5F7FB;
+}
+
+.answer:active {
+  transform: scale(0.9);
 }
 
 .start-page {
   /* display: none; */
+  text-align: center;
 }
+
+.start-btn {
+  padding: 1em 3.5em;
+  border-radius: 15px;
+  background-color: #4D5B9E;
+  color: #F5F7FB;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.5s, transform 0.3s;
+}
+
+.start-btn:hover {
+  background-color: #F5F7FB ;
+  color:#4D5B9E;
+}
+
+.start-btn:active {
+  transform: scale(0.9);
+}
+
+/* play again button */
+
+
+
+/* Start quiz */
+
+position: absolute;
+width: 136.11px;
+height: 20.58px;
+left: 207.09px;
+top: 330.25px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+text-align: center;
+
+color: #F5F7FB;
+
+
+
+/* blobs */
+
+.blob-top-right {
+  position: absolute;
+  width: 297px;
+  height: 235px;
+  left: 540.85px;
+  top: 196.73px;
+
+  transform: rotate(-128.49deg);
+}
+
+.blob-5-top-right {
+  position: absolute;
+  left: 62.24%;
+  right: -62.24%;
+  top: 161.16%;
+  bottom: -161.16%;
+}
+
+.lemony-medium {
+  background: #FFFAD1;
+  transform: rotate(-128.49deg);
+}
+
+.blob-bot-left {
+  position: absolute;
+  width: 297px;
+  height: 235px;
+  left: -149px;
+  top: 432px;
+}
+
+.blob-5-bot-left {
+  position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+}
+
+.baby-medium {
+  background: #DEEBF8;
+
+}
+

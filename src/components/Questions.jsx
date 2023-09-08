@@ -2,6 +2,9 @@ import React from "react"
 import Answers from "./Answers"
 import { decode } from 'html-entities';
 
+import '../App.css'
+
+
 export default function Questions(props){
     console.log("props.questions ", props.questionObj)
     const {question, correct_answer, incorrect_answers, allAnswers} = props.questionObj
@@ -33,12 +36,12 @@ export default function Questions(props){
     //display checked answer page 
 
     return(
-        <div>
-            <div className="question-container">
+        <div className="qa-container">
+            <div className="question">
                 Questions: {decode(question)}
             </div>
             <div className="answer-container">
-                Answers: {answerElements}
+                {answerElements}
             </div>
         </div>
     )

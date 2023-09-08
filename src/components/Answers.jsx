@@ -1,5 +1,8 @@
 import React from "react"
 
+import '../App.css'
+
+
 export default function Answers(props){
 
     console.log("props: ", props)
@@ -14,21 +17,20 @@ export default function Answers(props){
     
 
     const styles = {
-        color: props.isSelected ? "green" : "white",
-        background: props.answerObj.markedCorrect,
+        // color: props.isSelected ? "blue" : "white",
+        background: props.answerObj.isIncorrect && "red" 
 
     }
 
 
     return(
-        <div className="answers-container">
-            <p 
-                className="answer" 
-                onClick={props.handleClick}
-                style={styles}
-           >
+        <p 
+            className="answer" 
+            onClick={props.handleClick}
+            style={styles}
+        >
             {props.answer}
         </p>
-        </div>
+        
     )
 }
