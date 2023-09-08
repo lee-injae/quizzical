@@ -101,24 +101,37 @@ function App() {
     console.log("correct answers: ", correctAnswerArr)
     
     
-
-    setQuestionsArr(prevQuestionArr => 
-      prevQuestionArr.map(questionObj => {
+    let newCounter = 0
+    const updatedQeustions = questionsArr.map(questionObj => {
       const updatedAnswers = questionObj.allAnswers.map(answer => {
-          if (answer.isSelected && correctAnswerArr.includes(answer.value)) {
-            setCounter(prevCount => prevCount + 1)
-            return {...answer, markedCorrect: "true"}
-          } else if (answer.isSelected && !correctAnswerArr.includes(answer.value)) {
-            return {...answer, markedCorrect: "false"}
+        if (answer.isSelected) {
+          
+          // If the selected answer is also a correct one, increment the counter.
+          if (correctAnswerArr.includes(answer.value)) {
+            newCounter++
           } else {
-            return answer
+              // If the answer is selected but not correct, mark it red.
+            return {...answer, markedCorrect: "red"}
           }
-      })
-      return {...questionObj, allAnswers:updatedAnswers}
-    }))
+            // If the answer is selected (regardless of its correctness), mark it green.
 
+          return {...answer, markedCorrect: "green"}
+        } else {
+                      // If the answer is not selected, return it unchanged.
+
+          return answer
+        }
+      })
+      return {...questionObj, allAnswers: updatedAnswers}
+    })
+
+    setQuestionsArr(updatedQeustions)
+
+    setCounter(newCounter)
+    console.log("newcounter: ", newCounter)
     console.log("counter: ", counter)
-    handleIsQuizChecked()
+    // handleIsQuizChecked()
+    setIsQuizChecked(true)
   }
 
   const questionEl = questionsArr.map(questionObj => (
@@ -158,7 +171,7 @@ function App() {
         
         <div>
             <h3>You scored {counter}   correct answers</h3>
-            <button></button>
+            <button>Replay</button>
         </div> }
 
       </div>

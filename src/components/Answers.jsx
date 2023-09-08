@@ -15,7 +15,7 @@ export default function Answers(props){
 
     const styles = {
         color: props.isSelected ? "green" : "white",
-        background: colorPick(props.answerObj.markedCorrect),
+        background: props.answerObj.markedCorrect,
 
     }
 
