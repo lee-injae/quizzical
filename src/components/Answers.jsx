@@ -5,20 +5,21 @@ import '../App.css'
 
 export default function Answers(props){
 
-    console.log("props: ", props)
+    console.log("answer comp props: ", props)
     
-    function colorPick(stringIndicator){
-        if (stringIndicator === "true") {
-            return "purple"
-        } else if (stringIndicator === "false") {
-            return "red"
-        }
-    }
+    // function colorPick(stringIndicator){
+    //     if (stringIndicator === "true") {
+    //         return "purple"
+    //     } else if (stringIndicator === "false") {
+    //         return "red"
+    //     }
+    // }
     
 
     const styles = {
-        // color: props.isSelected ? "blue" : "white",
-        background: props.answerObj.isIncorrect && "red" 
+        background: props.isSelected && "#D6DBF5",
+        border: props.isSelected && "none"
+        // background: props.answerObj.isIncorrect && "red" 
 
     }
 

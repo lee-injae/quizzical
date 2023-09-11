@@ -35,7 +35,8 @@ body {
   padding: 0.5em 1em;
   cursor: pointer;
   transition: background-color 0.5s, transform 0.3s;
-
+  font-size: 0.7rem;
+  font-weight: 500;
 }
 
 .answer:hover {
@@ -70,29 +71,6 @@ body {
 .start-btn:active {
   transform: scale(0.9);
 }
-
-/* play again button */
-
-
-
-/* Start quiz */
-
-position: absolute;
-width: 136.11px;
-height: 20.58px;
-left: 207.09px;
-top: 330.25px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-text-align: center;
-
-color: #F5F7FB;
-
-
 
 /* blobs */
 
@@ -139,4 +117,7 @@ bottom: 0%;
   background: #DEEBF8;
 
 }
+
+
+
 
