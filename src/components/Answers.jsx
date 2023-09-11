@@ -5,6 +5,8 @@ import '../App.css'
 
 export default function Answers(props){
 
+    const {value, isSelected, isChecked, isIncorrect} = props.answerObj
+
     console.log("answer comp props: ", props)
     
     // function colorPick(stringIndicator){
@@ -17,20 +19,26 @@ export default function Answers(props){
     
 
     const styles = {
-        background: props.isSelected && "#D6DBF5",
-        border: props.isSelected && "none"
-        // background: props.answerObj.isIncorrect && "red" 
-
+        background: isSelected && "#D6DBF5",
+        border: isSelected && "none",
+        // background: props.answerObj.isChecked && "#94D7A2"
     }
+
+    const newStyle = {
+        ...styles,
+        background: isSelected && "#94D7A2",
+        opacity: !isSelected && "0.5"    
+    }
+
 
 
     return(
         <p 
             className="answer" 
             onClick={props.handleClick}
-            style={styles}
+            style={isChecked ? newStyle : styles}
         >
-            {props.answer}
+            {value}
         </p>
         
     )

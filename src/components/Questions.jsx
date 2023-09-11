@@ -18,16 +18,10 @@ export default function Questions(props){
     const answerElements = allAnswers.map( (answerObj) => (
         <Answers 
             key={Math.random()}
-            answer={answerObj.value}
-            isSelected={answerObj.isSelected}
             handleClick={props.handleClick}
             answerObj={answerObj}
         />
     ))
-
-    
-
-    //highlight selected answer 
 
     //save selected answer and compare with correct answer 
 

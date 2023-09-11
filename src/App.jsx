@@ -91,7 +91,8 @@ function App() {
       const selectedValues = selected.map(selectedAnswerObj => selectedAnswerObj.value)
       return selectedAnswers.concat(selectedValues)
       }, [])
-    console.log("select", select)
+
+    console.log("selected answers", select)
     console.log("correct answers: ", correctAnswersArr)
     
     
@@ -104,11 +105,15 @@ function App() {
             newCounter++
           } else {
             // If the answer is selected but not correct, mark it red.
-            return {...answer, isIncorrect: true}
+            return {
+              ...answer, 
+              isIncorrect: true,
+              isChecked: true
+            }
           }
         } 
         // If the answer is not selected, return it unchanged.
-        return answer
+        return {...answer, isChecked: true}
       })
       return {...questionObj, allAnswers: updatedAnswers}
     })
@@ -137,6 +142,7 @@ function App() {
   }
 
   return (
+    // Start view
     <div className='app-container'>
       <div className='start-page' style={styles}>
         <div className='blob-top-right'>
@@ -153,15 +159,20 @@ function App() {
           <div className='blob-5-bot-left baby-medium'></div>
         </div>
       </div>
-      <div>
+
+     {/* Questions and Answers view */}
+      <div className='s'>
       {isQuizOn && questionEl}
       {isQuizOn && 
-        <button 
-          className='check-answers-btn'
-          onClick={handleBtnClick}
+        <div className='check-answers-container'>
+          <button 
+            className='check-answers-btn'
+            onClick={handleBtnClick}
           >
             Check answers
-        </button>}
+          </button>
+        </div>
+      }
 
         {isQuizChecked && 
         <div>
