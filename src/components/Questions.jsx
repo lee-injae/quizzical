@@ -7,12 +7,7 @@ import '../App.css'
 
 export default function Questions(props){
     console.log("props.questions ", props.questionObj)
-    const {question, correct_answer, incorrect_answers, allAnswers} = props.questionObj
-
-    // const styles = {
-    //     color: props.isSelected ? "green" : "white"
-    // }
-
+    const {question, allAnswers} = props.questionObj
 
     // console.log("allanswrs", allAnswers)
     const answerElements = allAnswers.map( (answerObj) => (
@@ -20,14 +15,13 @@ export default function Questions(props){
             key={Math.random()}
             handleClick={props.handleClick}
             answerObj={answerObj}
+            correctAnswersArr={props.correctAnswersArr}
         />
     ))
 
     //save selected answer and compare with correct answer 
 
     //check answer button imbed
-
-    //display checked answer page 
 
     return(
         <div className="qa-container">

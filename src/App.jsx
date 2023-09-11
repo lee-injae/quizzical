@@ -133,7 +133,6 @@ function App() {
         questionObj={questionObj}
         handleClick={(e) => handleClick(e, questionObj.id)}
         correctAnswersArr={correctAnswersArr}
-        // handleIsSelected={handleIsSelected}
     /> 
   ))
 
