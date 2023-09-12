@@ -19,72 +19,77 @@ function App() {
   const [quizState, setQuizState] = React.useState(QUIZ_STATES.START)
   const [counter, setCounter] = React.useState(0)
 
-  
   React.useEffect(() => {
+    fetchQuestions()
+  }, [])
+
+  function fetchQuestions(){
     fetch(URL)
-    .then(res => res.json())
-    .then(data => {
+      .then(res => res.json())
+      .then(data => {
+        const questionsWithShuffledAnswerObjects = data.results.map(question => {
+          const allAnswers = [...question.incorrect_answers]
+          const randNum = Math.floor(Math.random() * 4)
 
-      const questionsWithShuffledAnswerObjects = data.results.map(question => {
-        const allAnswers = [...question.incorrect_answers]
-        const randNum = Math.floor(Math.random() * 4)
-        allAnswers.splice(randNum, 0, question.correct_answer)
-        
-        const newAnswerObjectsArray = allAnswers.map( (answer, index ) => {
+          allAnswers.splice(randNum, 0, question.correct_answer)
+          const newAnswerObjectsArray = allAnswers.map( (answer, index ) => {
+            return {
+              id: index,
+              value: decode(answer),
+              isSelected: false,
+              isCorrect: false,
+              isChecked: false
+            }
+          })
+
           return {
-            id: index,
-            value: decode(answer),
-            isSelected: false,
-            isCorrect: false,
-            isChecked: false
+            ...question,
+            id: nanoid(),
+            allAnswers: newAnswerObjectsArray
           }
-        })
-
-        return {
-          ...question,
-          id: nanoid(),
-          allAnswers: newAnswerObjectsArray
-        }})        
+        })        
         setQuestionsArr(questionsWithShuffledAnswerObjects)
       })
       .catch(err => {
         console.error("Failed to fetch questions: ", err)
       })
-  }, [])
+  }
    
   function selectAnswer(e, questionId){
       const clickedValue = e.currentTarget.textContent;
       
-      setQuestionsArr(prevQuestionsArr => {
-        return prevQuestionsArr.map(questionObj => {
-          if (questionObj.id === questionId){
-            return {
-              ...questionObj,
-              allAnswers: questionObj.allAnswers.map(answer => {
-                if (answer.value === clickedValue) {
-                  return {...answer, isSelected: !answer.isSelected}
-                } else {
-                  return {...answer, isSelected: false} 
-                }
-              })
+      if (quizState === QUIZ_STATES.QUIZ_ON){
+        setQuestionsArr(prevQuestionsArr => {
+          return prevQuestionsArr.map(questionObj => {
+            if (questionObj.id === questionId){
+              return {
+                ...questionObj,
+                allAnswers: questionObj.allAnswers.map(answer => {
+                  if (answer.value === clickedValue) {
+                    return {...answer, isSelected: !answer.isSelected}
+                  } else {
+                    return {...answer, isSelected: false} 
+                  }
+                })
+              }
+            } else {
+              return questionObj
             }
-          } else {
-            return questionObj
-          }
+          })
         })
-      })
-     
+    }
   }
 
   function checkAnswers(){
-    const selectedAnswersArr = questionsArr.reduce(
-      (selectedAnswers, questionObj) => {
-        const selected = questionObj.allAnswers.filter(answer => 
-          answer.isSelected)
-        const selectedValues = selected.map(selectedAnswerObj => 
-          selectedAnswerObj.value)
-        return selectedAnswers.concat(selectedValues)
-      }, [])
+    //EXAMPLE for how to use array.reduce
+    // const selectedAnswersArr = questionsArr.reduce(
+    //   (selectedAnswers, questionObj) => {
+    //     const selected = questionObj.allAnswers.filter(answer => 
+    //       answer.isSelected)
+    //     const selectedValues = selected.map(selectedAnswerObj => 
+    //       selectedAnswerObj.value)
+    //     return selectedAnswers.concat(selectedValues)
+    //   }, [])
 
     if (quizState === "QUIZ_ON"){
       let newCounter = 0
@@ -120,11 +125,11 @@ function App() {
           }
         })
       return {...questionObj, allAnswers: updatedAnswers}
-    })
-
-    setQuestionsArr(updatedQeustions)
-    setCounter(newCounter)
-    setQuizState(QUIZ_STATES.QUIZ_CHECKED)
+      }
+    )
+      setQuestionsArr(updatedQeustions)
+      setCounter(newCounter)
+      setQuizState(QUIZ_STATES.QUIZ_CHECKED)
     }
   }
 
@@ -133,6 +138,7 @@ function App() {
         key={questionObj.id}
         questionObj={questionObj}
         selectAnswer={(e) => selectAnswer(e, questionObj.id)}
+        quizState={quizState}
     /> 
   ))
 
@@ -142,6 +148,7 @@ function App() {
 
   function replay(){
     setQuizState(QUIZ_STATES.START)
+    fetchQuestions()
   }
 
   return (
@@ -149,7 +156,7 @@ function App() {
         {(() => {
           switch(quizState) {
             case QUIZ_STATES.START:
-              return <Start startQuiz={startQuiz}/>;            
+              return <Start quizState={quizState} startQuiz={startQuiz}/>;            
             case QUIZ_STATES.QUIZ_ON:
               return (
                 <>
@@ -184,6 +191,14 @@ function App() {
         })()}
       </div>
   )
+  // return (
+  //   <div className='app-container'>
+  //     <Start startQuiz={startQuiz} />
+  //   </div>
+  // );
 }
     
 export default App
+
+
+

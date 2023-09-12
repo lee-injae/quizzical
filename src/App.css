@@ -18,10 +18,6 @@ body {
   margin-top: 1em;  
 }
 
-.title:hover {
-  cursor: pointer;
-}
-
 .question {
   font-weight: 700;
 }
@@ -46,7 +42,6 @@ body {
   background-color: #4D5B9E ;
   color:#F5F7FB;
   cursor: pointer;
-
 }
 
 .answer:active {
@@ -54,12 +49,7 @@ body {
 }
 
 .start-page {
-  /* display: none; */
   text-align: center;
-}
-
-.s .check-answers-btn {
-  margin: 0 auto;
 }
 
 .replay-container {
@@ -79,12 +69,10 @@ body {
 }
 
 .start-btn:hover {
-  background-color: #F5F7FB ;
-  color:#4D5B9E;
   cursor: pointer;
 }
 
-.start-btn:active {
+.start-btn:active, .start-btn:focus {
   transform: scale(0.9);
 }
 
@@ -100,6 +88,15 @@ body {
   border: none;
   color: #F5F7FB;
   padding: 1em 2.5em;
+  transition: background-color 0.6s, transform 0.4s;
+}
+
+.check-answers-btn:hover {
+  cursor: pointer;
+}
+
+.check-answers-btn:active, .check-answers-btn:focus{
+  transform: scale(0.9);
 }
 
 .replay-btn {
@@ -108,6 +105,15 @@ body {
   border: none;
   color: #F5F7FB;
   padding: 1em 2.5em;
+  transition: background-color 0.6s, transform 0.4s;
+}
+
+.replay-btn:hover {
+  cursor: pointer;
+}
+
+.replay-btn:active, .replay-btn:focus {
+  transform: scale(0.9);
 }
 
 

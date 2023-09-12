@@ -6,7 +6,7 @@ import '../App.css'
 
 export default function Quiz(props){
     const {question, allAnswers} = props.questionObj
-    console.log("props of Quiz", props)
+    
     const answerElements = allAnswers.map( (answerObj) => (
         <Answers 
             key={answerObj.id}
