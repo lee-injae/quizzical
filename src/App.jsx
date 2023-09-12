@@ -15,7 +15,7 @@ function App() {
   const [counter, setCounter] = React.useState(0)
   
   React.useEffect(() => {
-    const url = "https://opentdb.com/api.php?amount=5&category=23&difficulty=easy&&type=multiple"
+    const url = "https://opentdb.com/api.php?amount=5&category=23&difficulty=medium&type=multiple"
 
     fetch(url)
     .then(res => res.json())
@@ -50,14 +50,10 @@ function App() {
       .catch(err => {
         console.error("Failed to fetch questions: ", err)
       })
-  }, [])
+  }, [isQuizOn])
    
   function handleIsQuizOn(){
     setIsQuizOn(prevState => !prevState)
-  }
-
-  function clicked(){
-    console.log("dhdhdh")
   }
 
   function handleIsQuizChecked(){
@@ -65,124 +61,79 @@ function App() {
   }
 
   function handleClick(e, questionId){
-    const clickedValue = e.target.textContent;
-    
-    setQuestionsArr(prevQuestionsArr => {
-      return prevQuestionsArr.map(questionObj => {
-        if (questionObj.id === questionId){
-          return {
-            ...questionObj,
-            allAnswers: questionObj.allAnswers.map(answer => {
-              if (answer.value === clickedValue) {
-                return {...answer, isSelected: !answer.isSelected}
-              } else {
-                return {...answer, isSelected: false} 
-              }
-            })
+    if (!isQuizChecked){
+      const clickedValue = e.target.textContent;
+      setQuestionsArr(prevQuestionsArr => {
+        return prevQuestionsArr.map(questionObj => {
+          if (questionObj.id === questionId){
+            return {
+              ...questionObj,
+              allAnswers: questionObj.allAnswers.map(answer => {
+                if (answer.value === clickedValue) {
+                  return {...answer, isSelected: !answer.isSelected}
+                } else {
+                  return {...answer, isSelected: false} 
+                }
+              })
+            }
+          } else {
+            return questionObj
           }
-        } else {
-          return questionObj
-        }
+        })
       })
-    })
+    } 
   }
 
   function handleBtnClick(){
-    console.log("correct answer array: ", correctAnswersArr)
-    console.log("questions array: ", questionsArr)
-
-    const select = questionsArr.reduce((selectedAnswers, questionObj) => {
-      const selected = questionObj.allAnswers.filter(answer => answer.isSelected)
-      const selectedValues = selected.map(selectedAnswerObj => selectedAnswerObj.value)
-      return selectedAnswers.concat(selectedValues)
+    const selectedAnswersArr = questionsArr.reduce(
+      (selectedAnswers, questionObj) => {
+        const selected = questionObj.allAnswers.filter(answer => 
+          answer.isSelected)
+        const selectedValues = selected.map(selectedAnswerObj => 
+          selectedAnswerObj.value)
+        return selectedAnswers.concat(selectedValues)
       }, [])
 
-    console.log("selected answers", select)
-    console.log("correct answers: ", correctAnswersArr)
-
-    let hh = []
-    for (let i = 0; i < select.length; i++){
-      if (correctAnswersArr[i] === select[i]){
-        hh.push("true")
-      } else {
-        hh.push("false")
-      } 
-    }
-    console.log(hh)
-    
-    
-    let newCounter = 0
-    const updatedQeustions = questionsArr.map(questionObj => {
-      let correctAnswer = questionObj.correct_answer
-      const updatedAnswers = questionObj.allAnswers.map(answerObj => {
-        if (answerObj.isSelected) {  
-          if (correctAnswer === answerObj.value){
-            newCounter++
-            console.log("correct!")
+    if (!isQuizChecked){
+      let newCounter = 0
+      const updatedQeustions = questionsArr.map(questionObj => {
+        let correctAnswer = questionObj.correct_answer
+        const updatedAnswers = questionObj.allAnswers.map(answerObj => {
+          if (answerObj.isSelected) {  
+            if (correctAnswer === answerObj.value){
+              newCounter++
+              return {
+                ...answerObj,
+                isChecked: true,
+                isCorrect: true
+              }
+            } else {
+              return {
+                ...answerObj, 
+                isCorrect: false,
+                isChecked: true
+              } 
+            }
+          } else if (correctAnswer === answerObj.value){  
             return {
               ...answerObj,
-              isChecked: true,
-              isCorrect: true
+              isCorrect: true, 
+              isChecked: true
             }
           } else {
-            // If the answer is selected but not correct.
-            console.log("wrong")
             return {
-              ...answerObj, 
-              isCorrect: false,
+              ...answerObj,
               isChecked: true
-            } 
+            }
           }
-        }
-        else if (correctAnswer === answerObj.value){  
-          return {
-            ...answerObj,
-            isCorrect: true, 
-            isChecked: true
-          }
-        } else {
-          return {
-            ...answerObj,
-            isChecked: true
-          }
-        }
-      })
+        })
       return {...questionObj, allAnswers: updatedAnswers}
     })
 
-          // If the selected answer is also a correct one
-          // if (correctAnswersArr.includes(answer.value) && (answer.value === correctAnswersArr[answer.id])) {
-          //   newCounter++
-          //   return {
-          //     ...answer,
-          //     isChecked: true,
-          //     isCorrect: true
-          //   }
-          // } else {
-          //   // If the answer is selected but not correct.
-          //   return {
-          //     ...answer, 
-          //     isCorrect: false,
-          //     isChecked: true
-          //   }
-          // }
-        //  else if (correctAnswersArr.includes(answer.value)){
-        //   return {...answer, isChecked: true, isCorrect: true}
-        // } 
-        // If the answer is not selected.
-        // return {...answer, isChecked: true}
-      // })
-      // return {...questionObj, allAnswers: updatedAnswers}
-    // })
-
     setQuestionsArr(updatedQeustions)
-    console.log("updaated one",updatedQeustions)
-
     setCounter(newCounter)
-    console.log("newcounter: ", newCounter)
-    console.log("counter: ", counter)
-    // handleIsQuizChecked()
     setIsQuizChecked(true)
+    }
   }
 
   const questionEl = questionsArr.map(questionObj => (
@@ -196,6 +147,11 @@ function App() {
 
   const styles = {
     display: isQuizOn ? "none" : "block" 
+  }
+
+  function replay(){
+    setIsQuizOn(false)
+    setIsQuizChecked(false)
   }
 
   return (
@@ -218,8 +174,6 @@ function App() {
         </div>
       </div>
 
-    
-
      {/* Questions and Answers view */}
       <div className='s'>
       {isQuizOn && questionEl}
@@ -237,7 +191,12 @@ function App() {
         {isQuizChecked && 
         <div>
             <h3>You scored {counter} / 5   correct answers</h3>
-            <button>Replay</button>
+            <button
+              className='replay-btn'
+              onClick={replay}
+              >
+              Replay
+            </button>
         </div> }
 
       </div>
