@@ -33,7 +33,8 @@ function App() {
             id: index,
             value: decode(answer),
             isSelected: false,
-            isIncorrect: false
+            isCorrect: false,
+            isChecked: false
           }
         })
 
@@ -53,6 +54,10 @@ function App() {
    
   function handleIsQuizOn(){
     setIsQuizOn(prevState => !prevState)
+  }
+
+  function clicked(){
+    console.log("dhdhdh")
   }
 
   function handleIsQuizChecked(){
@@ -94,31 +99,84 @@ function App() {
 
     console.log("selected answers", select)
     console.log("correct answers: ", correctAnswersArr)
+
+    let hh = []
+    for (let i = 0; i < select.length; i++){
+      if (correctAnswersArr[i] === select[i]){
+        hh.push("true")
+      } else {
+        hh.push("false")
+      } 
+    }
+    console.log(hh)
     
     
     let newCounter = 0
     const updatedQeustions = questionsArr.map(questionObj => {
-      const updatedAnswers = questionObj.allAnswers.map(answer => {
-        if (answer.isSelected) {
-          // If the selected answer is also a correct one, increment the counter.
-          if (correctAnswersArr.includes(answer.value)) {
+      let correctAnswer = questionObj.correct_answer
+      const updatedAnswers = questionObj.allAnswers.map(answerObj => {
+        if (answerObj.isSelected) {  
+          if (correctAnswer === answerObj.value){
             newCounter++
-          } else {
-            // If the answer is selected but not correct, mark it red.
+            console.log("correct!")
             return {
-              ...answer, 
-              isIncorrect: true,
-              isChecked: true
+              ...answerObj,
+              isChecked: true,
+              isCorrect: true
             }
+          } else {
+            // If the answer is selected but not correct.
+            console.log("wrong")
+            return {
+              ...answerObj, 
+              isCorrect: false,
+              isChecked: true
+            } 
           }
-        } 
-        // If the answer is not selected, return it unchanged.
-        return {...answer, isChecked: true}
+        }
+        else if (correctAnswer === answerObj.value){  
+          return {
+            ...answerObj,
+            isCorrect: true, 
+            isChecked: true
+          }
+        } else {
+          return {
+            ...answerObj,
+            isChecked: true
+          }
+        }
       })
       return {...questionObj, allAnswers: updatedAnswers}
     })
 
+          // If the selected answer is also a correct one
+          // if (correctAnswersArr.includes(answer.value) && (answer.value === correctAnswersArr[answer.id])) {
+          //   newCounter++
+          //   return {
+          //     ...answer,
+          //     isChecked: true,
+          //     isCorrect: true
+          //   }
+          // } else {
+          //   // If the answer is selected but not correct.
+          //   return {
+          //     ...answer, 
+          //     isCorrect: false,
+          //     isChecked: true
+          //   }
+          // }
+        //  else if (correctAnswersArr.includes(answer.value)){
+        //   return {...answer, isChecked: true, isCorrect: true}
+        // } 
+        // If the answer is not selected.
+        // return {...answer, isChecked: true}
+      // })
+      // return {...questionObj, allAnswers: updatedAnswers}
+    // })
+
     setQuestionsArr(updatedQeustions)
+    console.log("updaated one",updatedQeustions)
 
     setCounter(newCounter)
     console.log("newcounter: ", newCounter)
@@ -137,12 +195,13 @@ function App() {
   ))
 
   const styles = {
-    display: isQuizOn && "none" 
+    display: isQuizOn ? "none" : "block" 
   }
 
   return (
     // Start view
     <div className='app-container'>
+
       <div className='start-page' style={styles}>
         <div className='blob-top-right'>
           <div className='blob-5-top-right lemony-medium'></div>
@@ -158,6 +217,8 @@ function App() {
           <div className='blob-5-bot-left baby-medium'></div>
         </div>
       </div>
+
+    
 
      {/* Questions and Answers view */}
       <div className='s'>
@@ -175,7 +236,7 @@ function App() {
 
         {isQuizChecked && 
         <div>
-            <h3>You scored {counter}   correct answers</h3>
+            <h3>You scored {counter} / 5   correct answers</h3>
             <button>Replay</button>
         </div> }
 

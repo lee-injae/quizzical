@@ -18,6 +18,10 @@ body {
   margin-top: 1em;  
 }
 
+.title:hover {
+  cursor: pointer;
+}
+
 .question {
   font-weight: 700;
 }
@@ -33,7 +37,6 @@ body {
   border-radius: 8px;
   border: #293264 1.5px solid;
   padding: 0.5em 1em;
-  cursor: pointer;
   transition: background-color 0.5s, transform 0.3s;
   font-size: 0.7rem;
   font-weight: 500;
@@ -42,6 +45,8 @@ body {
 .answer:hover {
   background-color: #4D5B9E ;
   color:#F5F7FB;
+  cursor: pointer;
+
 }
 
 .answer:active {
@@ -65,13 +70,13 @@ body {
   background-color: #4D5B9E;
   color: #F5F7FB;
   border: none;
-  cursor: pointer;
   transition: background-color 0.5s, transform 0.3s;
 }
 
 .start-btn:hover {
   background-color: #F5F7FB ;
   color:#4D5B9E;
+  cursor: pointer;
 }
 
 .start-btn:active {
