@@ -4,24 +4,16 @@ import { decode } from 'html-entities';
 
 import '../App.css'
 
-
-export default function Questions(props){
-    console.log("props.questions ", props.questionObj)
+export default function Quiz(props){
     const {question, allAnswers} = props.questionObj
-
-    // console.log("allanswrs", allAnswers)
+    console.log("props of Quiz", props)
     const answerElements = allAnswers.map( (answerObj) => (
         <Answers 
-            key={Math.random()}
-            handleClick={props.handleClick}
+            key={answerObj.id}
+            selectAnswer={props.selectAnswer}
             answerObj={answerObj}
-            correctAnswersArr={props.correctAnswersArr}
         />
     ))
-
-    //save selected answer and compare with correct answer 
-
-    //check answer button imbed
 
     return(
         <div className="qa-container">
