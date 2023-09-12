@@ -1,9 +1,9 @@
 import React from "react"
 
+import "./Start.css"
+
 export default function Start(props){
     
-    console.log("Current quizState:", props.quizState);
-
     return(
         <div className='start-page'>
             <div className='blob-top-right'>

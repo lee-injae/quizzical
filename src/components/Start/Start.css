@@ -1,0 +1,29 @@
+.start-page {
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    letter-spacing: .08em;
+}
+
+.title-sub {
+    margin-top: 0.5em;
+    margin-bottom: 1.3em;
+}
+
+.start-btn {
+    padding: 1em 3em;
+    border-radius: 15px;
+    background-color: #4D5B9E;
+    color: #F5F7FB;
+    border: none;
+    transition: background-color 0.5s, transform 0.3s;
+}
+
+.start-btn:hover {
+    cursor: pointer;
+}
+
+.start-btn:active, .start-btn:focus {
+    transform: scale(0.9);
+}

@@ -2,8 +2,8 @@ import React from 'react'
 import { nanoid } from "nanoid"
 import { decode } from 'html-entities';
 
-import Start from "./components/Start"
-import Quiz from "./components/Quiz"
+import Start from "./components/Start/Start"
+import Quiz from "./components/Quiz/Quiz"
 
 import './App.css'
 
@@ -138,7 +138,6 @@ function App() {
         key={questionObj.id}
         questionObj={questionObj}
         selectAnswer={(e) => selectAnswer(e, questionObj.id)}
-        quizState={quizState}
     /> 
   ))
 
@@ -156,18 +155,19 @@ function App() {
         {(() => {
           switch(quizState) {
             case QUIZ_STATES.START:
-              return <Start quizState={quizState} startQuiz={startQuiz}/>;            
+              return <Start 
+                quizState={quizState} 
+                startQuiz={startQuiz}
+                />;            
             case QUIZ_STATES.QUIZ_ON:
               return (
                 <>
                   {questionEl}
-                  <div className='check-answers-container'>
-                    <button 
-                      className='check-answers-btn' 
-                      onClick={checkAnswers}>
-                      Check answers
-                    </button>
-                  </div>
+                  <button 
+                    className='check-answers-btn' 
+                    onClick={checkAnswers}>
+                    Check answers
+                  </button>
                 </>
               );
               case QUIZ_STATES.QUIZ_CHECKED:
@@ -191,11 +191,6 @@ function App() {
         })()}
       </div>
   )
-  // return (
-  //   <div className='app-container'>
-  //     <Start startQuiz={startQuiz} />
-  //   </div>
-  // );
 }
     
 export default App

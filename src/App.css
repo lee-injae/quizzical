@@ -1,55 +1,20 @@
 body {
   background-color: #F5F7FB;
+  color: #293264;
+  max-width: 800px;
+}
 
+h1, h2, h3, h4, p {
+  margin: 0;
 }
 
 .app-container {
   margin: 0 auto;
-  max-width: 800px;
   display: grid;
   place-items: center;
   min-height: 100vh;
-  color: #293264;
-  line-height: 1.187rem;
-}
-
-.qa-container {
-  border-bottom: #DFDEF0 solid 2px;
-  margin-top: 1em;  
-}
-
-.question {
-  font-weight: 700;
-}
-
-.answer-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.answer {
-  display: inline-block;
-  margin-right: 1em;
-  border-radius: 8px;
-  border: #293264 1.5px solid;
-  padding: 0.5em 1em;
-  transition: background-color 0.5s, transform 0.3s;
-  font-size: 0.7rem;
-  font-weight: 500;
-}
-
-.answer:hover {
-  background-color: #4D5B9E ;
-  color:#F5F7FB;
-  cursor: pointer;
-}
-
-.answer:active {
-  transform: scale(0.9);
-}
-
-.start-page {
-  text-align: center;
+  /* line-height: 1.187rem; */
+  padding: 1.5em
 }
 
 .replay-container {
@@ -59,46 +24,7 @@ body {
 
 /* BUTTONS */
 
-.start-btn {
-  padding: 1em 3.5em;
-  border-radius: 15px;
-  background-color: #4D5B9E;
-  color: #F5F7FB;
-  border: none;
-  transition: background-color 0.5s, transform 0.3s;
-}
-
-.start-btn:hover {
-  cursor: pointer;
-}
-
-.start-btn:active, .start-btn:focus {
-  transform: scale(0.9);
-}
-
-.check-answers-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 1em;
-}
-
-.check-answers-btn {
-  border-radius: 10px;
-  background-color: #4D5B9E;
-  border: none;
-  color: #F5F7FB;
-  padding: 1em 2.5em;
-  transition: background-color 0.6s, transform 0.4s;
-}
-
-.check-answers-btn:hover {
-  cursor: pointer;
-}
-
-.check-answers-btn:active, .check-answers-btn:focus{
-  transform: scale(0.9);
-}
-
+.check-answers-btn, 
 .replay-btn {
   border-radius: 10px;
   background-color: #4D5B9E;
@@ -108,14 +34,18 @@ body {
   transition: background-color 0.6s, transform 0.4s;
 }
 
-.replay-btn:hover {
+.check-answers-btn:hover, 
+.replay-btn:hover  {
   cursor: pointer;
 }
 
-.replay-btn:active, .replay-btn:focus {
+.check-answers-btn:active, 
+.check-answers-btn:focus,
+.replay-btn:active, 
+.replay-btn:focus
+{
   transform: scale(0.9);
 }
-
 
 /* blobs */
 
@@ -152,10 +82,10 @@ body {
 
 .blob-5-bot-left {
   position: absolute;
-left: 0%;
-right: 0%;
-top: 0%;
-bottom: 0%;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
 }
 
 .baby-medium {

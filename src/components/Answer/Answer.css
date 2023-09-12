@@ -1,0 +1,20 @@
+.answer {
+    display: inline-block;
+    margin-right: 1em;
+    border-radius: 8px;
+    border: #293264 1.5px solid;
+    padding: 0.5em 1em;
+    transition: background-color 0.5s, transform 0.3s;
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+  
+  .answer:hover {
+    background-color: #4D5B9E ;
+    color:#F5F7FB;
+    cursor: pointer;
+  }
+  
+  .answer:active {
+    transform: scale(0.9);
+  }

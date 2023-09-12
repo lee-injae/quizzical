@@ -1,0 +1,20 @@
+.qa-container {
+    padding-bottom: 1em;
+    border-bottom: #DFDEF0 solid 2px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-start; */
+    /* justify-content: space-between; */
+    /* margin-top: 1em;   */
+  }
+  
+  .question {
+    font-weight: 700;
+    margin-bottom: 1em;
+    letter-spacing: 0.01em;
+  }
+
+  .answer-container {
+    display: flex;
+    flex-direction: row;
+  }

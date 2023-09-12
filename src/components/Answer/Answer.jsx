@@ -1,8 +1,8 @@
 import React from "react"
 
-import '../App.css'
+import "./Answer.css"
 
-export default function Answers(props){
+export default function Answer(props){
     const {value, isSelected, isChecked, isCorrect} = props.answerObj
 
     const bgColorPick = () => {

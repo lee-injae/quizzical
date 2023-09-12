@@ -1,14 +1,14 @@
 import React from "react"
-import Answers from "./Answers"
+import Answer from "../Answer/Answer"
 import { decode } from 'html-entities';
 
-import '../App.css'
+import "./Quiz.css"
 
 export default function Quiz(props){
     const {question, allAnswers} = props.questionObj
     
     const answerElements = allAnswers.map( (answerObj) => (
-        <Answers 
+        <Answer
             key={answerObj.id}
             selectAnswer={props.selectAnswer}
             answerObj={answerObj}
