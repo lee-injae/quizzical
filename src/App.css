@@ -1,7 +1,9 @@
 body {
   background-color: #F5F7FB;
   color: #293264;
-  max-width: 800px;
+  max-width: 760px;
+  margin: 0 auto;
+  box-sizing: border-box
 }
 
 h1, h2, h3, h4, p {
@@ -9,17 +11,40 @@ h1, h2, h3, h4, p {
 }
 
 .app-container {
-  margin: 0 auto;
-  display: grid;
-  place-items: center;
   min-height: 100vh;
-  /* line-height: 1.187rem; */
-  padding: 1.5em
+  padding: 0 1.5em;
+  padding-bottom: 1.1em;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  /* background-color: red; */
+}
+
+@media (min-width: 420px) {
+  .app-container {
+    padding: 0 2em;
+    padding-bottom: 1.5em;
+  }
+  
+  .check-answers-btn {
+    padding: 1.2em 2.2em;
+    margin-top: 1.5em;
+  }
+  
+  .replay-btn {
+    padding: 1em 2em;
+    margin-left: 2em;
+  }
 }
 
 .replay-container {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap:0.5em;
+  margin-top: 1.5em;
+  align-items: center; 
+  /* font-size: 0.9rem; */
 }
 
 /* BUTTONS */
@@ -30,13 +55,25 @@ h1, h2, h3, h4, p {
   background-color: #4D5B9E;
   border: none;
   color: #F5F7FB;
-  padding: 1em 2.5em;
   transition: background-color 0.6s, transform 0.4s;
 }
+
+.check-answers-btn {
+  padding: 1.2em 2.2em;
+  margin-top: 1.5em;
+}
+
+.replay-btn {
+  padding: 1em 1.2em;
+  /* margin-left: 1em; */
+}
+
+
 
 .check-answers-btn:hover, 
 .replay-btn:hover  {
   cursor: pointer;
+  background-color: #FFA500;
 }
 
 .check-answers-btn:active, 
@@ -45,51 +82,6 @@ h1, h2, h3, h4, p {
 .replay-btn:focus
 {
   transform: scale(0.9);
-}
-
-/* blobs */
-
-.blob-top-right {
-  position: absolute;
-  width: 297px;
-  height: 235px;
-  left: 540.85px;
-  top: 196.73px;
-
-  transform: rotate(-128.49deg);
-}
-
-.blob-5-top-right {
-  position: absolute;
-  left: 62.24%;
-  right: -62.24%;
-  top: 161.16%;
-  bottom: -161.16%;
-}
-
-.lemony-medium {
-  background: #FFFAD1;
-  transform: rotate(-128.49deg);
-}
-
-.blob-bot-left {
-  position: absolute;
-  width: 297px;
-  height: 235px;
-  left: -149px;
-  top: 432px;
-}
-
-.blob-5-bot-left {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-}
-
-.baby-medium {
-  background: #DEEBF8;
 }
 
 

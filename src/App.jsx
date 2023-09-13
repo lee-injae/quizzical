@@ -162,7 +162,9 @@ function App() {
             case QUIZ_STATES.QUIZ_ON:
               return (
                 <>
-                  {questionEl}
+                  <div>
+                    {questionEl}
+                  </div>
                   <button 
                     className='check-answers-btn' 
                     onClick={checkAnswers}>
@@ -173,14 +175,16 @@ function App() {
               case QUIZ_STATES.QUIZ_CHECKED:
                 return (
                   <>
-                    {questionEl}
+                    <div>
+                      {questionEl}
+                    </div>
                     <footer className='replay-container'>
-                      <h3>You scored {counter} / 5 correct answers</h3>
+                      <h4>You scored {counter} / 5 correct answers</h4>
                       <button
                         className='replay-btn'
                         onClick={replay}
                       >
-                        Replay
+                        Play again
                       </button>
                     </footer>
                   </>

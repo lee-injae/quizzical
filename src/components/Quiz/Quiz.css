@@ -1,11 +1,10 @@
 .qa-container {
-    padding-bottom: 1em;
+    padding: 1em 0;
     border-bottom: #DFDEF0 solid 2px;
     display: flex;
-    flex-direction: column;
-    /* align-items: flex-start; */
-    /* justify-content: space-between; */
-    /* margin-top: 1em;   */
+    flex-direction: column; 
+    justify-content: space-between;
+    /* background-color: yellow; */
   }
   
   .question {
@@ -16,5 +15,4 @@
 
   .answer-container {
     display: flex;
-    flex-direction: row;
   }
