@@ -7,7 +7,12 @@ import Quiz from "./components/Quiz/Quiz"
 
 import './App.css'
 
-const URL = "https://opentdb.com/api.php?amount=5&category=23&difficulty=easy&type=multiple"
+const URL = "https://opentdb.com/api.php?amount=5&category=11&difficulty=easy&type=multiple"
+const BASEURL = "https://opentdb.com/api.php?amount=5&type=multiple"
+
+const categoryArr = ["General Knowledge", "Entertainment: Books", "Entertainment: Film", "Entertainment: Music", "Entertainment: Musicals & Theatres", "Entertainment: Television","Entertainment: Video Games","Entertainment: Board Games", "Science & Nature", "Science: Computers", "Science: Mathmatics", "Mythology", "Sports", "Geography", "History", "Politics", "Art", "Celebrities", "Animals", "Vehicles", "Entertainment: Comics", "Science: Gadgets", "Entertainment: Japanese Anime & Manga", "Entertainment: Cartoon & Animations"  ]
+
+
 const QUIZ_STATES = {
   START: 'START',
   QUIZ_ON: 'QUIZ_ON',
@@ -23,8 +28,16 @@ function App() {
     fetchQuestions()
   }, [])
 
+
+ const h = BASEURL.split("")
+
+ h.splice(36, 0, "&category=31&difficulty=easy")
+ const l = h.join("")
+
+ console.log(l)
+
   function fetchQuestions(){
-    fetch(URL)
+    fetch(l)
       .then(res => res.json())
       .then(data => {
         const questionsWithShuffledAnswerObjects = data.results.map(question => {
@@ -156,7 +169,7 @@ function App() {
           switch(quizState) {
             case QUIZ_STATES.START:
               return <Start 
-                quizState={quizState} 
+                // quizState={quizState} 
                 startQuiz={startQuiz}
                 />;            
             case QUIZ_STATES.QUIZ_ON:
