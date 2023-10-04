@@ -21,21 +21,23 @@ export default function App() {
   const [quizState, setQuizState] = React.useState(QUIZ_STATES.START)
   const [counter, setCounter] = React.useState(0)
   
-  React.useEffect(() => {
-    fetchQuestions()
-  }, [])
+  // React.useEffect(() => {
+  //   fetchQuestions()
+  // }, [])
 
-  // const {selectedCategoy, selectedDifficulty} =  React.useContext(DropdownContext)
+  function takeParams(categoryNum, difficultyStr) {
+    const url = new URL(BASEURL)
+    const params = url.searchParams
+    params.set('category', categoryNum)
+    params.set('difficulty', difficultyStr)
+    url.search = params.toString()
+    const finalURL = url.toString()
+    console.log(finalURL)
+    return finalURL
+  }
 
-//  const h = BASEURL.split("")
-
-//  h.splice(36, 0, "&category=31&difficulty=easy")
-//  const l = h.join("")
-
-//  console.log(l)
-
-  function fetchQuestions(){
-    fetch(takeParams())
+  function fetchQuestions(categoryNum, difficultyStr){
+    fetch(takeParams(categoryNum, difficultyStr))
       .then(res => res.json())
       .then(data => {
         const questionsWithShuffledAnswerObjects = data.results.map(question => {
@@ -152,32 +154,12 @@ export default function App() {
     /> 
   ))
 
-  function startQuiz(str){
-    console.log("clicked", str)
+  function startQuiz(categoryNum, difficultyStr){
+    fetchQuestions(categoryNum, difficultyStr)
     setQuizState(QUIZ_STATES.QUIZ_ON)
   }
 
-  // function takeParams(category = "11", difficulty = "easy"){
-  //   const combinedParam = `&category=${category}&difficulty=&${difficulty}`
-  //   const tt = BASEURL.split("")
-  //   tt.splice(36, 0, combinedParam)
-  //   tt.join("")
-  //   return tt 
-  // }
-
-
-function takeParams(category = "9", difficulty = "medium") {
-    const url = new URL(BASEURL);
-    const params = url.searchParams;
-
-    params.set('category', category);
-    params.set('difficulty', difficulty);
-
-    url.search = params.toString();
-
-    const finalURL = url.toString();
-    return finalURL; // Return the final URL as a string
-}
+  
 
   function replay(){
     setQuizState(QUIZ_STATES.START)
