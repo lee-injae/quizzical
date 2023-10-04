@@ -7,37 +7,35 @@ import Quiz from "./components/Quiz/Quiz"
 
 import './App.css'
 
-const URL = "https://opentdb.com/api.php?amount=5&category=11&difficulty=easy&type=multiple"
-const BASEURL = "https://opentdb.com/api.php?amount=5&type=multiple"
+import { DropdownContext } from './components/Dropdown/Dropdown';
 
-const categoryArr = ["General Knowledge", "Entertainment: Books", "Entertainment: Film", "Entertainment: Music", "Entertainment: Musicals & Theatres", "Entertainment: Television","Entertainment: Video Games","Entertainment: Board Games", "Science & Nature", "Science: Computers", "Science: Mathmatics", "Mythology", "Sports", "Geography", "History", "Politics", "Art", "Celebrities", "Animals", "Vehicles", "Entertainment: Comics", "Science: Gadgets", "Entertainment: Japanese Anime & Manga", "Entertainment: Cartoon & Animations"  ]
-
-
+const BASEURL = "https://opentdb.com/api.php?amount=5&type=multiple";
 const QUIZ_STATES = {
   START: 'START',
   QUIZ_ON: 'QUIZ_ON',
   QUIZ_CHECKED: 'QUIZ_CHECKED'
 };
 
-function App() {
+export default function App() {
   const [questionsArr, setQuestionsArr] = React.useState([])
   const [quizState, setQuizState] = React.useState(QUIZ_STATES.START)
   const [counter, setCounter] = React.useState(0)
-
+  
   React.useEffect(() => {
     fetchQuestions()
   }, [])
 
+  // const {selectedCategoy, selectedDifficulty} =  React.useContext(DropdownContext)
 
- const h = BASEURL.split("")
+//  const h = BASEURL.split("")
 
- h.splice(36, 0, "&category=31&difficulty=easy")
- const l = h.join("")
+//  h.splice(36, 0, "&category=31&difficulty=easy")
+//  const l = h.join("")
 
- console.log(l)
+//  console.log(l)
 
   function fetchQuestions(){
-    fetch(l)
+    fetch(takeParams())
       .then(res => res.json())
       .then(data => {
         const questionsWithShuffledAnswerObjects = data.results.map(question => {
@@ -154,9 +152,32 @@ function App() {
     /> 
   ))
 
-  function startQuiz(){
+  function startQuiz(str){
+    console.log("clicked", str)
     setQuizState(QUIZ_STATES.QUIZ_ON)
   }
+
+  // function takeParams(category = "11", difficulty = "easy"){
+  //   const combinedParam = `&category=${category}&difficulty=&${difficulty}`
+  //   const tt = BASEURL.split("")
+  //   tt.splice(36, 0, combinedParam)
+  //   tt.join("")
+  //   return tt 
+  // }
+
+
+function takeParams(category = "9", difficulty = "medium") {
+    const url = new URL(BASEURL);
+    const params = url.searchParams;
+
+    params.set('category', category);
+    params.set('difficulty', difficulty);
+
+    url.search = params.toString();
+
+    const finalURL = url.toString();
+    return finalURL; // Return the final URL as a string
+}
 
   function replay(){
     setQuizState(QUIZ_STATES.START)
@@ -168,10 +189,14 @@ function App() {
         {(() => {
           switch(quizState) {
             case QUIZ_STATES.START:
-              return <Start 
-                // quizState={quizState} 
-                startQuiz={startQuiz}
-                />;            
+              return (
+                <>
+                  {/* <DropdownContext.Provider value={{ selectedCategoy, selectedDifficulty }}> */}
+                    <Start  
+                      startQuiz={startQuiz}
+                      />
+                  {/* </DropdownContext.Provider> */}
+                </>)
             case QUIZ_STATES.QUIZ_ON:
               return (
                 <>
@@ -210,7 +235,6 @@ function App() {
   )
 }
     
-export default App
 
 
 
