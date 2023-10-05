@@ -18,7 +18,7 @@ export default function Quiz(props){
     return(
         <div className="qa-container">
             <div className="question">
-                Questions: {decode(question)}
+                {decode(question)}
             </div>
             <div className="answer-container">
                 {answerElements}

@@ -1,9 +1,17 @@
+* {
+  /* box-sizing: border-box; */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
 body {
-  background-color: #F5F7FB;
+  background-color: #1C1C1C;
   color: #293264;
-  max-width: 760px;
-  margin: 0 auto;
-  box-sizing: border-box
+  margin: 0;
+  /* height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, p {
@@ -11,26 +19,48 @@ h1, h2, h3, h4, p {
 }
 
 .app-container {
-  min-height: 100vh;
-  padding: 0 1.5em;
-  padding-bottom: 1.1em;
+  background-color: #f5f7fb;
+  background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
+  background-repeat: no-repeat;
+  background-position: right 250% top 125%, 100% -5%;
+  max-height: 800px;
+  max-width: 768px; 
+  /* height:100vh; */
+  /* width: 100%; */
+  /* padding: 0.5em 1.5em; */
+  /* margin: 0; */
+  /* display: flex; */
+  /* flex-direction: column;  */
+  /* justify-content: space-evenly;  */
+  /* align-items: center;  */
+  /* border: 2px red solid; */
+  /* font-size: 10px; */
+}
+
+.quiz-container {
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
-  /* background-color: red; */
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  padding: 1.5em 0;
 }
 
 @media (min-width: 420px) {
   .app-container {
-    padding: 0 2em;
-    padding-bottom: 1.5em;
+    background-position: right 140% top 135%, 100% -10%;
+    justify-content: unset;
+    /* height:100%; */
+    /* width: 100vw; */
+    /* padding: 3em 10em; */
+    /* padding-bottom: 1.5em; */
   }
   
-  .check-answers-btn {
+  /* .check-answers-btn {
     padding: 1.2em 2.2em;
     margin-top: 1.5em;
-  }
+  } */
   
   .replay-btn {
     padding: 1em 2em;
@@ -55,20 +85,20 @@ h1, h2, h3, h4, p {
   background-color: #4D5B9E;
   border: none;
   color: #F5F7FB;
-  transition: background-color 0.6s, transform 0.4s;
+  transition: background-color 0.4s, transform 0.2s;
 }
 
 .check-answers-btn {
   padding: 1.2em 2.2em;
   margin-top: 1.5em;
+  
+  align-self: center;
 }
 
 .replay-btn {
   padding: 1em 1.2em;
   /* margin-left: 1em; */
 }
-
-
 
 .check-answers-btn:hover, 
 .replay-btn:hover  {

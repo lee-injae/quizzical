@@ -1,5 +1,5 @@
 import React from "react"
-
+import "./Dropdown.css"
 
 const DropdownContext = React.createContext()
 
@@ -38,8 +38,8 @@ export default function Dropdown(props){
     // console.log(props)
 
     return(
-        <form>
-            <label htmlFor="category">Category</label>        
+        <form className="dropdown-form">
+            <label htmlFor="category"><h4>Category</h4></label>        
             <select 
                 id="category" 
                 name="category"
@@ -47,7 +47,7 @@ export default function Dropdown(props){
                 <option value="" disabled>-----Select a category-----</option>
                 {categoryEl}
             </select>
-            <label htmlFor="difficulty">Difficulty</label>
+            <label htmlFor="difficulty"><h4>Difficulty</h4></label>
             <select 
                 id="difficulty" 
                 name="difficulty"

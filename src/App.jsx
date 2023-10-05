@@ -181,16 +181,16 @@ export default function App() {
                 </>)
             case QUIZ_STATES.QUIZ_ON:
               return (
-                <>
-                  <div>
+                <div className='quiz-container'>
+                  <>
                     {questionEl}
-                  </div>
+                  </>
                   <button 
                     className='check-answers-btn' 
                     onClick={checkAnswers}>
                     Check answers
                   </button>
-                </>
+                </div>
               );
               case QUIZ_STATES.QUIZ_CHECKED:
                 return (
