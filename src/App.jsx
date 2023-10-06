@@ -194,10 +194,10 @@ export default function App() {
               );
               case QUIZ_STATES.QUIZ_CHECKED:
                 return (
-                  <>
-                    <div>
+                  <div className='check-container'>
+                    <>
                       {questionEl}
-                    </div>
+                    </>
                     <footer className='replay-container'>
                       <h4>You scored {counter} / 5 correct answers</h4>
                       <button
@@ -207,7 +207,7 @@ export default function App() {
                         Play again
                       </button>
                     </footer>
-                  </>
+                  </div>
                 );
               default:
                 return <ErrorComponent />;

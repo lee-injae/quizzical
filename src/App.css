@@ -23,8 +23,8 @@ h1, h2, h3, h4, p {
   background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
   background-repeat: no-repeat;
   background-position: right 250% top 125%, 100% -5%;
-  max-height: 800px;
-  max-width: 768px; 
+  max-height: 700px;
+  max-width: 700px; 
   /* height:100vh; */
   /* width: 100%; */
   /* padding: 0.5em 1.5em; */
@@ -38,13 +38,19 @@ h1, h2, h3, h4, p {
 }
 
 .quiz-container {
-  height: 100vh;
-  width: 100vw;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
   /* justify-content: center; */
-  padding: 1.5em 0;
+  padding: 0.3em 1.5em ;
+  /* border: red solid 2px; */
+  /* background-color: red; */
+}
+
+.check-container {
+  height:100dvh;
+  padding: 1.5em;
 }
 
 @media (min-width: 420px) {
@@ -90,7 +96,7 @@ h1, h2, h3, h4, p {
 
 .check-answers-btn {
   padding: 1.2em 2.2em;
-  margin-top: 1.5em;
+  margin-top: 1em;
   
   align-self: center;
 }
