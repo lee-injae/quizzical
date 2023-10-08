@@ -1,5 +1,5 @@
 * {
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
@@ -11,7 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
+  /* overflow-x:; */
 }
 
 h1, h2, h3, h4, p {
@@ -22,9 +22,10 @@ h1, h2, h3, h4, p {
   background-color: #f5f7fb;
   background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
   background-repeat: no-repeat;
-  background-position: right 250% top 125%, 100% -5%;
-  max-height: 700px;
-  max-width: 850px; 
+  background-position: right 280% top 125%, 100% -8%;
+  max-height: 850px;
+  max-width: 768px; 
+  
   /* height:100vh; */
   /* width: 100%; */
   /* padding: 0.5em 1.5em; */
@@ -38,18 +39,25 @@ h1, h2, h3, h4, p {
 }
 
 .quiz-container {
+  /* overflow:; */
+  /* background-color: pink; */
+  /* width: 100vw; */
   height: 100dvh;
   display: flex;
+  /* flex-wrap: wrap; */
   flex-direction: column;
   /* align-items: center; */
   /* justify-content: center; */
-  padding: 0.3em 1.5em ;
+  padding: 0 20px ;
+  /* padding: 3em; */
   /* border: red solid 2px; */
   /* background-color: red; */
 }
 
 .check-container {
   height:100dvh;
+  padding: 0 20px ;
+
   padding: 1.5em;
 }
 
@@ -96,7 +104,7 @@ h1, h2, h3, h4, p {
 
 .check-answers-btn {
   padding: 1.2em 2.2em;
-  margin-top: 1em;
+  margin-top: 1.5em;
   
   align-self: center;
 }

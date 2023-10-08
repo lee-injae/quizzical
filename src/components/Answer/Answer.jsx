@@ -25,12 +25,12 @@ export default function Answer(props){
     }
 
     return(
-        <p 
+        <span 
             className="answer" 
             onClick={(e) => props.selectAnswer(e)}
             style={answerStyles}
         >
             {value}
-        </p>
+        </span>
     )
 }

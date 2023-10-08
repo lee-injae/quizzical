@@ -1,15 +1,11 @@
 .answer {
-    display: inline-block;
-    margin-right: 1em;
-    border-radius: 8px;
+    border-radius: 5px;
     border: #293264 1.5px solid;
-    padding: 0.5em 1em;
+    padding: 0.5em;
     transition: background-color 0.5s, transform 0.3s;
     font-size: 0.7rem;
-    font-weight: 500;
     display: flex;
     align-items: center;
-    text-align: center;
   }
   
   .answer:hover {

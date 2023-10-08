@@ -7,8 +7,6 @@ import Quiz from "./components/Quiz/Quiz"
 
 import './App.css'
 
-import { DropdownContext } from './components/Dropdown/Dropdown';
-
 const BASEURL = "https://opentdb.com/api.php?amount=5&type=multiple";
 const QUIZ_STATES = {
   START: 'START',
@@ -40,6 +38,7 @@ export default function App() {
     fetch(takeParams(categoryNum, difficultyStr))
       .then(res => res.json())
       .then(data => {
+        console.log("data", data)
         const questionsWithShuffledAnswerObjects = data.results.map(question => {
           const allAnswers = [...question.incorrect_answers]
           const randNum = Math.floor(Math.random() * 4)
@@ -61,7 +60,9 @@ export default function App() {
             allAnswers: newAnswerObjectsArray
           }
         })        
+        console.log(questionsWithShuffledAnswerObjects)
         setQuestionsArr(questionsWithShuffledAnswerObjects)
+        
       })
       .catch(err => {
         console.error("Failed to fetch questions: ", err)
@@ -154,8 +155,9 @@ export default function App() {
     /> 
   ))
 
-  function startQuiz(categoryNum, difficultyStr){
-    fetchQuestions(categoryNum, difficultyStr)
+  function startQuiz(category, difficultyStr){
+    console.log("startqui", category, difficultyStr)
+    fetchQuestions(category, difficultyStr)
     setQuizState(QUIZ_STATES.QUIZ_ON)
   }
 
@@ -194,7 +196,7 @@ export default function App() {
               );
               case QUIZ_STATES.QUIZ_CHECKED:
                 return (
-                  <div className='check-container'>
+                  <div className='quiz-container'>
                     <>
                       {questionEl}
                     </>
