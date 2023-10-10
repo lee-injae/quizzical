@@ -18,7 +18,6 @@ export default function Dropdown(props){
             ...prevSelections,
             [e.target.name]: e.target.value,
         }))
-        console.log(selections)
     }
 
     const handleClick = (e) => {

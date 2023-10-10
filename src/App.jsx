@@ -15,15 +15,19 @@ const QUIZ_STATES = {
 };
 
 export default function App() {
+
+  const [quizData, setQuizData] = React.useState([])
   const [questionsArr, setQuestionsArr] = React.useState([])
   const [quizState, setQuizState] = React.useState(QUIZ_STATES.START)
   const [counter, setCounter] = React.useState(0)
   
-  // React.useEffect(() => {
-  //   fetchQuestions()
-  // }, [])
+  React.useEffect(() => {
+    if (quizData.length > 0) {
+      updateQuestionsArr()
+    }
+  }, [quizData])
 
-  function buildUrl(categoryNum, difficultyStr) {
+  function buildApiUrl(categoryNum, difficultyStr) {
     const url = new URL(BASEURL)
     const params = url.searchParams
     params.set('category', categoryNum)
@@ -33,41 +37,48 @@ export default function App() {
     return finalURL
   }
 
-  function fetchQuestions(categoryNum, difficultyStr){
-    fetch(buildUrl(categoryNum, difficultyStr))
-      .then(res => res.json())
-      .then(data => {
-        console.log("data", data)
-        const questionsWithShuffledAnswerObjects = data.results.map(question => {
-          const allAnswers = [...question.incorrect_answers]
-          const randNum = Math.floor(Math.random() * 4)
-
-          allAnswers.splice(randNum, 0, question.correct_answer)
-          const newAnswerObjectsArray = allAnswers.map( (answer, index ) => {
-            return {
-              id: index,
-              value: decode(answer),
-              isSelected: false,
-              isCorrect: false,
-              isChecked: false
-            }
-          })
-
-          return {
-            ...question,
-            id: nanoid(),
-            allAnswers: newAnswerObjectsArray
-          }
-        })        
-        console.log(questionsWithShuffledAnswerObjects)
-        setQuestionsArr(questionsWithShuffledAnswerObjects)
-        
-      })
-      .catch(err => {
-        console.error("Failed to fetch questions: ", err)
-      })
+  async function fetchQuizData(urlStr){
+    try {
+      const res = await fetch(urlStr)
+      const data = await res.json()
+      setQuizData(data.results)
+    }
+    catch(err) {
+      console.log("Failed to fetch questions: ", err)
+      alert("failed to fetch questions")
+    }
   }
-   
+
+  function updateQuestionsArr(data){
+    const questionWithShuffledAnswerObjects = quizData.map(data => {
+      const {incorrect_answers, correct_answer, question} = data
+      const decodedCorrectAnswer = decode(correct_answer)
+      const decodedQuestion = decode(question)
+      const allAnswers = [...incorrect_answers]
+      const randNum = Math.floor(Math.random() * 4)
+      allAnswers.splice(randNum, 0, decodedCorrectAnswer)
+
+      const newAnswerObjectsArray = allAnswers.map(( answer, index ) => {
+        return {
+          id: index,
+          value: decode(answer),
+          isSelected: false,
+          isCorrect: false,
+          isChecked: false
+          }
+      })
+
+      return {
+        ...data,
+        question: decodedQuestion,
+        id: nanoid(),
+        allAnswers: newAnswerObjectsArray
+      }
+    })        
+    console.log(questionWithShuffledAnswerObjects)
+    setQuestionsArr(questionWithShuffledAnswerObjects)
+  }    
+  
   function selectAnswer(e, questionId){
       const clickedValue = e.currentTarget.textContent;
       
@@ -106,11 +117,11 @@ export default function App() {
 
     if (quizState === "QUIZ_ON"){
       let newCounter = 0
-      const updatedQeustions = questionsArr.map(questionObj => {
-        let correctAnswer = questionObj.correct_answer
+      const updatedQuestions = questionsArr.map(questionObj => {
+        let decodedCorrectAnswer = decode(questionObj.correct_answer)
         const updatedAnswers = questionObj.allAnswers.map(answerObj => {
           if (answerObj.isSelected) {  
-            if (correctAnswer === answerObj.value){
+            if (decodedCorrectAnswer === answerObj.value){
               newCounter++
               return {
                 ...answerObj,
@@ -124,7 +135,7 @@ export default function App() {
                 isChecked: true
               } 
             }
-          } else if (correctAnswer === answerObj.value){  
+          } else if (decodedCorrectAnswer === answerObj.value){  
             return {
               ...answerObj,
               isCorrect: true, 
@@ -140,7 +151,7 @@ export default function App() {
       return {...questionObj, allAnswers: updatedAnswers}
       }
     )
-      setQuestionsArr(updatedQeustions)
+      setQuestionsArr(updatedQuestions)
       setCounter(newCounter)
       setQuizState(QUIZ_STATES.QUIZ_CHECKED)
     }
@@ -155,12 +166,10 @@ export default function App() {
   ))
 
   function startQuiz(category, difficultyStr){
-    console.log("startqui", category, difficultyStr)
-    fetchQuestions(category, difficultyStr)
+    const url = buildApiUrl(category, difficultyStr)
+    fetchQuizData(url)
     setQuizState(QUIZ_STATES.QUIZ_ON)
   }
-
-  
 
   function replay(){
     setQuizState(QUIZ_STATES.START)
@@ -174,11 +183,9 @@ export default function App() {
             case QUIZ_STATES.START:
               return (
                 <>
-                  {/* <DropdownContext.Provider value={{ selectedCategoy, selectedDifficulty }}> */}
-                    <Start  
-                      startQuiz={startQuiz}
-                      />
-                  {/* </DropdownContext.Provider> */}
+                  <Start  
+                    startQuiz={startQuiz}
+                    />
                 </>)
             case QUIZ_STATES.QUIZ_ON:
               return (
