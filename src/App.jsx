@@ -49,7 +49,7 @@ export default function App() {
     }
   }
 
-  function updateQuestionsArr(data){
+  function updateQuestionsArr(){
     const questionWithShuffledAnswerObjects = quizData.map(data => {
       const {incorrect_answers, correct_answer, question} = data
       const decodedCorrectAnswer = decode(correct_answer)
@@ -70,6 +70,7 @@ export default function App() {
 
       return {
         ...data,
+        correct_answer: decodedCorrectAnswer,
         question: decodedQuestion,
         id: nanoid(),
         allAnswers: newAnswerObjectsArray
@@ -83,8 +84,8 @@ export default function App() {
       const clickedValue = e.currentTarget.textContent;
       
       if (quizState === QUIZ_STATES.QUIZ_ON){
-        setQuestionsArr(prevQuestionsArr => {
-          return prevQuestionsArr.map(questionObj => {
+        setQuestionsArr(prevQuestionsArr => 
+          prevQuestionsArr.map(questionObj => {
             if (questionObj.id === questionId){
               return {
                 ...questionObj,
@@ -100,7 +101,7 @@ export default function App() {
               return questionObj
             }
           })
-        })
+        )
     }
   }
 
@@ -115,13 +116,12 @@ export default function App() {
     //     return selectedAnswers.concat(selectedValues)
     //   }, [])
 
-    if (quizState === "QUIZ_ON"){
+    if (quizState === QUIZ_STATES.QUIZ_ON){
       let newCounter = 0
       const updatedQuestions = questionsArr.map(questionObj => {
-        let decodedCorrectAnswer = decode(questionObj.correct_answer)
         const updatedAnswers = questionObj.allAnswers.map(answerObj => {
           if (answerObj.isSelected) {  
-            if (decodedCorrectAnswer === answerObj.value){
+            if (questionObj.correct_answer === answerObj.value){
               newCounter++
               return {
                 ...answerObj,
@@ -135,7 +135,7 @@ export default function App() {
                 isChecked: true
               } 
             }
-          } else if (decodedCorrectAnswer === answerObj.value){  
+          } else if (questionObj.correct_answer === answerObj.value){  
             return {
               ...answerObj,
               isCorrect: true, 
@@ -173,7 +173,8 @@ export default function App() {
 
   function replay(){
     setQuizState(QUIZ_STATES.START)
-    fetchQuestions()
+    setQuizData([])
+    // fetchQuestions()
   }
 
   return (

@@ -5,6 +5,7 @@
     justify-content: center;
     letter-spacing: .08em;
     height: 100dvh;
+    /* width: 100dvw; */
 }
 
 .title-sub {
