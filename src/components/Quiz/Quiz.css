@@ -2,7 +2,7 @@
   border-bottom: #DFDEF0 solid 2px;
   display: flex;
   flex-direction: column; 
-  margin-top: 1em;
+  margin-top: .7em;
 }
 
 .question {
