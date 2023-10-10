@@ -23,19 +23,18 @@ export default function App() {
   //   fetchQuestions()
   // }, [])
 
-  function takeParams(categoryNum, difficultyStr) {
+  function buildUrl(categoryNum, difficultyStr) {
     const url = new URL(BASEURL)
     const params = url.searchParams
     params.set('category', categoryNum)
     params.set('difficulty', difficultyStr)
     url.search = params.toString()
     const finalURL = url.toString()
-    console.log(finalURL)
     return finalURL
   }
 
   function fetchQuestions(categoryNum, difficultyStr){
-    fetch(takeParams(categoryNum, difficultyStr))
+    fetch(buildUrl(categoryNum, difficultyStr))
       .then(res => res.json())
       .then(data => {
         console.log("data", data)
