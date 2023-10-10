@@ -6,6 +6,8 @@
     font-size: 0.7rem;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    justify-content: center;
   }
   
   .answer:hover {
@@ -14,6 +16,6 @@
     cursor: pointer;
   }
   
-  .answer:active {
+  .answer:active, .answer:focus {
     transform: scale(0.9);
   }
