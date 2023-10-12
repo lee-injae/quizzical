@@ -11,20 +11,26 @@ body {
   justify-content: center;
   align-items: center;
   height: 100dvh;
+  background-color: #f5f7fb;
+  background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
+  background-repeat: no-repeat;
+  background-position: right 280% top 135%, 100% -12%;
+  max-height: 850px;
+  max-width: 768px;
 }
 
 h1, h2, h3, h4, p {
   margin: 0;
 }
 
-.app-container {
+/* .app-container {
   background-color: #f5f7fb;
   background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
   background-repeat: no-repeat;
   background-position: right 280% top 125%, 100% -8%;
   max-height: 850px;
   max-width: 768px;
-}
+} */
 
 .quiz-container {
   display: flex;

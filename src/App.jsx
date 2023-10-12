@@ -4,6 +4,7 @@ import { decode } from 'html-entities';
 
 import Start from "./components/Start/Start"
 import Quiz from "./components/Quiz/Quiz"
+import LoadingIndicator from "./components/LoadingIndicator/LoadingIndicator"
 
 import './App.css'
 
@@ -20,6 +21,8 @@ export default function App() {
   const [questionsArr, setQuestionsArr] = React.useState([])
   const [quizState, setQuizState] = React.useState(QUIZ_STATES.START)
   const [counter, setCounter] = React.useState(0)
+  const [loading, setLoading] = React.useState(false);
+
   
   React.useEffect(() => {
     if (quizData.length > 0) {
@@ -42,10 +45,12 @@ export default function App() {
       const res = await fetch(urlStr)
       const data = await res.json()
       setQuizData(data.results)
+      setLoading(false)
     }
     catch(err) {
       console.log("Failed to fetch questions: ", err)
       alert("failed to fetch questions")
+      setLoading(false)
     }
   }
 
@@ -170,11 +175,12 @@ export default function App() {
   ))
 
   function startQuiz(category, difficultyStr){
+    setLoading(true)
     const url = buildApiUrl(category, difficultyStr)
     fetchQuizData(url)
     setQuizState(QUIZ_STATES.QUIZ_ON)
   }
-
+  
   function replay(){
     setQuizState(QUIZ_STATES.START)
     setQuizData([])
@@ -182,53 +188,106 @@ export default function App() {
   }
 
   return (
-      <div className='app-container'>
-        {(() => {
-          switch(quizState) {
-            case QUIZ_STATES.START:
-              return (
+    <>
+      {loading ? <LoadingIndicator /> : renderQuiz()}
+    </>
+  );
+  
+  function renderQuiz() {
+    switch(quizState) {
+      // Your existing switch-case logic
+        case QUIZ_STATES.START:
+          return (
+            <>
+              <Start  
+                startQuiz={startQuiz}
+                />
+            </>)
+        case QUIZ_STATES.QUIZ_ON:
+          return (
+            <div className='quiz-container'>
+              <>
+                {questionEl}
+              </>
+              <button 
+                className='check-answers-btn' 
+                onClick={checkAnswers}>
+                Check answers
+              </button>
+            </div>
+          );
+          case QUIZ_STATES.QUIZ_CHECKED:
+            return (
+              <div className='quiz-container'>
                 <>
-                  <Start  
-                    startQuiz={startQuiz}
-                    />
-                </>)
-            case QUIZ_STATES.QUIZ_ON:
-              return (
-                <div className='quiz-container'>
-                  <>
-                    {questionEl}
-                  </>
-                  <button 
-                    className='check-answers-btn' 
-                    onClick={checkAnswers}>
-                    Check answers
+                  {questionEl}
+                </>
+                <footer className='replay-container'>
+                  <h4>You scored {counter} / 5 correct answers</h4>
+                  <button
+                    className='replay-btn'
+                    onClick={replay}
+                  >
+                    Play again
                   </button>
-                </div>
-              );
-              case QUIZ_STATES.QUIZ_CHECKED:
-                return (
-                  <div className='quiz-container'>
-                    <>
-                      {questionEl}
-                    </>
-                    <footer className='replay-container'>
-                      <h4>You scored {counter} / 5 correct answers</h4>
-                      <button
-                        className='replay-btn'
-                        onClick={replay}
-                      >
-                        Play again
-                      </button>
-                    </footer>
-                  </div>
-                );
-              default:
-                return <ErrorComponent />;
-          }
-        })()}
-      </div>
-  )
-}
+                </footer>
+              </div>
+            );
+          default:
+            return <ErrorComponent />;
+      }
+    }
+  }
+  
+
+//   return (
+//       <div className='app-container'>
+//         {(() => {
+//           switch(quizState) {
+//             case QUIZ_STATES.START:
+//               return (
+//                 <>
+//                   <Start  
+//                     startQuiz={startQuiz}
+//                     />
+//                 </>)
+//             case QUIZ_STATES.QUIZ_ON:
+//               return (
+//                 <div className='quiz-container'>
+//                   <>
+//                     {questionEl}
+//                   </>
+//                   <button 
+//                     className='check-answers-btn' 
+//                     onClick={checkAnswers}>
+//                     Check answers
+//                   </button>
+//                 </div>
+//               );
+//               case QUIZ_STATES.QUIZ_CHECKED:
+//                 return (
+//                   <div className='quiz-container'>
+//                     <>
+//                       {questionEl}
+//                     </>
+//                     <footer className='replay-container'>
+//                       <h4>You scored {counter} / 5 correct answers</h4>
+//                       <button
+//                         className='replay-btn'
+//                         onClick={replay}
+//                       >
+//                         Play again
+//                       </button>
+//                     </footer>
+//                   </div>
+//                 );
+//               default:
+//                 return <ErrorComponent />;
+//           }
+//         })()}
+//       </div>
+//   )
+// }
     
 
 
