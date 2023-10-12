@@ -54,14 +54,14 @@ export default function App() {
       const {incorrect_answers, correct_answer, question} = data
       const decodedCorrectAnswer = decode(correct_answer)
       const decodedQuestion = decode(question)
-      const allAnswers = [...incorrect_answers]
+      const allAnswers = incorrect_answers.map(incorrectAnswer => decode(incorrectAnswer))
       const randNum = Math.floor(Math.random() * 4)
       allAnswers.splice(randNum, 0, decodedCorrectAnswer)
 
       const newAnswerObjectsArray = allAnswers.map(( answer, index ) => {
         return {
           id: index,
-          value: decode(answer),
+          value: answer,
           isSelected: false,
           isCorrect: false,
           isChecked: false
@@ -76,24 +76,26 @@ export default function App() {
         allAnswers: newAnswerObjectsArray
       }
     })        
-    console.log(questionWithShuffledAnswerObjects)
+    console.log("updated QArray", questionWithShuffledAnswerObjects)
     setQuestionsArr(questionWithShuffledAnswerObjects)
   }    
   
   function selectAnswer(e, questionId){
       const clickedValue = e.currentTarget.textContent;
-      
+      // console.log(clickedValue, questionId)
       if (quizState === QUIZ_STATES.QUIZ_ON){
         setQuestionsArr(prevQuestionsArr => 
           prevQuestionsArr.map(questionObj => {
             if (questionObj.id === questionId){
               return {
                 ...questionObj,
-                allAnswers: questionObj.allAnswers.map(answer => {
-                  if (answer.value === clickedValue) {
-                    return {...answer, isSelected: !answer.isSelected}
+                allAnswers: questionObj.allAnswers.map(answerObj => {
+                  if (answerObj.value === clickedValue) {
+                    console.log("yes", answerObj.value)
+                    return {...answerObj, isSelected: !answerObj.isSelected}
                   } else {
-                    return {...answer, isSelected: false} 
+                    console.log("no")
+                    return {...answerObj, isSelected: false} 
                   }
                 })
               }
@@ -103,7 +105,9 @@ export default function App() {
           })
         )
     }
+    // console.log("after selected", questionsArr)
   }
+  // console.log("after selected super", questionsArr)
 
   function checkAnswers(){
     //EXAMPLE for how to use array.reduce

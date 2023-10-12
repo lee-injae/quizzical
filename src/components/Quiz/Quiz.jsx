@@ -1,6 +1,6 @@
 import React from "react"
 import Answer from "../Answer/Answer"
-import { decode } from 'html-entities';
+// import { decode } from 'html-entities';
 
 import "./Quiz.css"
 
@@ -18,7 +18,7 @@ export default function Quiz(props){
     return(
         <div className="qa-container">
             <div className="question">
-                {decode(question)}
+                {question}
             </div>
             <div className="answer-container">
                 {answerElements}

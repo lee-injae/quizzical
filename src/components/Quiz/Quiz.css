@@ -8,6 +8,7 @@
 .question {
   font-weight: 700;
   letter-spacing: 0.01em;
+  font-size: .95rem;
 }
 
 .answer-container {
