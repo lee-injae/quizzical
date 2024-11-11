@@ -1,21 +1,26 @@
 .answer {
+    padding: 0.5rem 0.6rem; /* Increased top and bottom padding */
+    border: 1.5px solid #293264;
     border-radius: 5px;
-    border: #293264 1.5px solid;
-    padding: 0.5em;
-    transition: background-color 0.5s, transform 0.3s;
-    font-size: 0.7rem;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    justify-content: center;
+    font-size: 0.8rem; /* Slightly larger text for better readability */
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
   }
-  
+
   .answer:hover {
     background-color: #4D5B9E ;
     color:#F5F7FB;
-    cursor: pointer;
   }
   
-  .answer:active, .answer:focus {
-    transform: scale(0.9);
+  .answer:active, 
+  .answer:focus {
+    transform: scale(0.95);
   }
+
+@media (min-width: 768px) {
+  .answer {
+    padding: 0.7rem 1rem; /* Comfortable padding for larger screens */
+    font-size: 1rem; /* Ensure text is not too small */
+  }
+}

@@ -1,25 +1,27 @@
+/* :root {
+  font-size: clamp(14px, 1.5vw, 18px);
+} */
+
 * {
   box-sizing: border-box;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background-color: #1C1C1C;
   color: #293264;
-  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
   background-color: #f5f7fb;
   background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
   background-repeat: no-repeat;
-  background-position: right 280% top 135%, 100% -12%;
-  background-size: contain;
-  overflow: hidden;
-  /* max-height: 850px;
-  max-width: 768px; */
+  background-position: top 10% right 20% bottom 10% left 15%;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, p {
@@ -29,19 +31,18 @@ h1, h2, h3, h4, p {
 .quiz-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  width: 90%;
+  width: 100%;
+  height: 100vh;
   max-width: 768px;
-  padding: 1em;
-  text-align: center;
-  height: auto;
+  padding: 1rem;
+  overflow-y: auto;
 }
 
 .replay-container {
   display: flex;
   gap:0.5em;
-  margin-top: 1em;
   align-items: center; 
   justify-content: center;
 }
@@ -49,9 +50,13 @@ h1, h2, h3, h4, p {
 /* Responsive Design */
 
 @media (min-width: 420px) {
+  .quiz-container {
+    padding: 1rem; /* Maintain consistency */
+  }
+
   .app-container {
-    background-position: right 100% top 200%, left 10%, top 50%;
-    background-size: 150%;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust grid for larger screens */
+    gap: 1rem; /* Slightly larger gaps */
   }
 
   .quiz-container {
@@ -83,30 +88,24 @@ h1, h2, h3, h4, p {
 
 /* BUTTONS */
 
+.check-answers-btn {
+  margin-top: 1rem;
+}
+
 .check-answers-btn, 
 .replay-btn {
-  border-radius: 10px;
-  background-color: #4D5B9E;
+  padding: 0.8rem 1.5rem; /* Adjusted for proportional size */
+  background-color: #4d5b9e;
+  color: #f5f7fb;
   border: none;
-  color: #F5F7FB;
-  transition: background-color 0.4s, transform 0.2s;
-  font-size: 1rem;
-}
-
-.check-answers-btn {
-  padding: 1.2em 2.2em;
-  margin-top: 1.5em;
-  align-self: center;
-}
-
-.replay-btn {
-  padding: 1em 1.2em;
-  /* margin-left: 1em; */
+  border-radius: 10px;
+  font-size: 1rem; /* Ensure readable text */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .check-answers-btn:hover, 
 .replay-btn:hover  {
-  cursor: pointer;
   background-color: #FFA500;
 }
 
@@ -118,8 +117,20 @@ h1, h2, h3, h4, p {
   transform: scale(0.9);
 }
 
+@media (min-width: 420px) {
+  .check-answers-btn,
+  .replay-btn {
+    padding: 1rem 2rem;
+  }
+}
 
-
+@media (min-width: 768px) {
+  .check-answers-btn,
+  .replay-btn {
+    padding: 0.7rem 1.8rem; /* Slightly larger buttons for desktops */
+    font-size: 0.9rem;
+  }
+}
 
 
 

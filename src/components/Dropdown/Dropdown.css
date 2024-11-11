@@ -1,27 +1,50 @@
 .dropdown-form{
     display: flex;
     flex-direction: column;
-    gap: 0.5em 0;
-    margin-right: 1em;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .start-btn {
-    padding: 1em 3em;
-    border-radius: 15px;
+    padding: 0.8rem 1.5rem; /* Adjusted for proportional size */
+    background-color: #4d5b9e;
+    color: #f5f7fb;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem; /* Ensure readable text */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.start-btn:hover {
+    background-color: #ffa500;
+}
+
+.check-answers-btn,
+.replay-btn {
+    padding: 1em 2em;
+    border-radius: 10px;
     background-color: #4D5B9E;
     color: #F5F7FB;
     border: none;
     transition: background-color 0.4s, transform 0.2s;
-    align-self: center;
-    margin-top: 1.5em;
+    cursor: pointer;
 }
 
-.start-btn:hover {
-    cursor: pointer;
+.check-answers-btn,
+.replay-btn:hover {
     background-color: #FFA500;
 }
 
-.start-btn:active, .start-btn:focus {
+.start-btn:active, 
+.start-btn:focus,
+.check-answers-btn:active,
+.check-answers-btn:focus,
+.replay-btn:active,
+.replay-btn:focus {
     transform: scale(0.9);
 }
 
@@ -40,7 +63,8 @@ select:hover {
     background-color: #f8f8f8;
   }
 
-select:focus, select:active {
+select:focus,
+select:active {
 border-color: #1a237e;
 background-color: #f8f8f8;
 }
@@ -51,7 +75,23 @@ option{
 }
 
 @media (min-width: 420px) {
+    .start-btn {
+      padding: 1rem 2rem;
+    }
+
+    .dropdown-form {
+        margin: 0 auto;
+        align-items: center;
+        gap: 1rem;
+      }
+
     select {
         margin: 0.5em 0;
     }
   }
+
+@media (min-width: 768px) {
+    .start-btn {
+      padding: 1.2rem 2.5rem;
+    }
+}

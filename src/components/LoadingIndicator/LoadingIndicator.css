@@ -5,17 +5,16 @@
     border: 3px solid #293264;
     border-bottom-color: transparent;
     border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+    /* display: inline-block; */
+    animation: spin 1s linear infinite;
     background-color: transparent;
-    }
+}
 
-    @keyframes rotation {
-    0% {
+    @keyframes spin {
+    from {
         transform: rotate(0deg);
     }
-    100% {
+    to {
         transform: rotate(360deg);
     }
 } 
