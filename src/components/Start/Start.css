@@ -4,7 +4,10 @@
     align-items: center;
     justify-content: center;
     letter-spacing: .08em;
-    height: 100dvh;
+    height: 100%;
+    width: 100%;
+    max-width: 768px;
+    padding: 1em;
     /* width: 100dvw; */
 }
 

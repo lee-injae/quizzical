@@ -15,8 +15,8 @@ body {
   background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
   background-repeat: no-repeat;
   background-position: right 280% top 135%, 100% -12%;
-  max-height: 850px;
-  max-width: 768px;
+  /* max-height: 850px;
+  max-width: 768px; */
 }
 
 h1, h2, h3, h4, p {
@@ -35,9 +35,12 @@ h1, h2, h3, h4, p {
 .quiz-container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   justify-content: center;
-  height: 100dvh;
+  align-items: center;
+  width: 100%;
+  max-width: 768px;
+  padding: 2em;
+  text-align: center;
 }
 
 .replay-container {
