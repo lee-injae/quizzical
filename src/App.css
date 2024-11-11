@@ -10,11 +10,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100dvh;
+  height: 100vh;
+  width: 100vw;
   background-color: #f5f7fb;
   background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
   background-repeat: no-repeat;
   background-position: right 280% top 135%, 100% -12%;
+  background-size: contain;
+  overflow: hidden;
   /* max-height: 850px;
   max-width: 768px; */
 }
@@ -23,50 +26,58 @@ h1, h2, h3, h4, p {
   margin: 0;
 }
 
-/* .app-container {
-  background-color: #f5f7fb;
-  background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
-  background-repeat: no-repeat;
-  background-position: right 280% top 125%, 100% -8%;
-  max-height: 850px;
-  max-width: 768px;
-} */
-
 .quiz-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%;
   max-width: 768px;
-  padding: 2em;
+  padding: 1em;
   text-align: center;
+  height: auto;
 }
 
 .replay-container {
   display: flex;
   gap:0.5em;
-  margin-top: 1.5em;
+  margin-top: 1em;
   align-items: center; 
+  justify-content: center;
 }
+
+/* Responsive Design */
 
 @media (min-width: 420px) {
   .app-container {
-    background-position: right 130% top 130%, 100% -10%;
-    width: 100vw;
+    background-position: right 100% top 200%, left 10%, top 50%;
+    background-size: 150%;
   }
 
   .quiz-container {
+    padding: 1em
+  }
+
+  .replay-btn, .check-answers-btn {
+    padding: 0.8em, 1.5em;
+  }
+
+  /* .replay-container {
     justify-content: center;
-    padding: 4em
+  } */
+}
+
+@media (min-width: 768px) { /* For tablets and laptops */
+  .quiz-container {
+    padding: 2em;
+  }
+
+  body {
+    background-position: right 130% top 130%, left 10% top 20%;
   }
 
   .replay-btn {
     padding: 1em 2em;
-    margin-left: 2em;
-  }
-  .replay-container {
-    justify-content: center;
   }
 }
 
@@ -79,12 +90,12 @@ h1, h2, h3, h4, p {
   border: none;
   color: #F5F7FB;
   transition: background-color 0.4s, transform 0.2s;
+  font-size: 1rem;
 }
 
 .check-answers-btn {
   padding: 1.2em 2.2em;
   margin-top: 1.5em;
-  
   align-self: center;
 }
 
