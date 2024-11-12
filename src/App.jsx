@@ -190,8 +190,15 @@ export default function App() {
 
   return (
     <>
-      {loading && <LoadingIndicator />} {/* Spinner appears during loading */}
-      {!loading && renderQuiz()} {/* Render quiz or start screen */}
+      {/* Decorative Blobs */}
+      <div className="yellow-blob"></div>
+      <div className="blue-blob"></div>
+
+      {/* Loading Spinner */}
+      {loading && <LoadingIndicator />}
+
+      {/* Main App Content */}
+      {!loading && renderQuiz()}
     </>
   );
   
@@ -213,7 +220,8 @@ export default function App() {
               </>
               <button 
                 className='check-answers-btn' 
-                onClick={checkAnswers}>
+                onClick={checkAnswers}
+                >
                 Check answers
               </button>
             </div>

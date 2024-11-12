@@ -9,7 +9,6 @@
 }
 
 body {
-  background-color: #1C1C1C;
   color: #293264;
   display: flex;
   justify-content: center;
@@ -18,10 +17,34 @@ body {
   width: 100vw;
   overflow: hidden;
   background-color: #f5f7fb;
-  background-image: url(./src/assets/blob-1.png), url(./src/assets/blob-2.png);
-  background-repeat: no-repeat;
-  background-position: top 10% right 20% bottom 10% left 15%;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Blobs */
+.yellow-blob {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+  max-width: 200px;
+  aspect-ratio: 1/1;
+  background-image: url('./src/assets/blob-1.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+}
+
+.blue-blob {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25%;
+  max-width: 250px;
+  aspect-ratio: 1/1;
+  background-image: url('./src/assets/blob-2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
 }
 
 h1, h2, h3, h4, p {
@@ -47,45 +70,6 @@ h1, h2, h3, h4, p {
   justify-content: center;
 }
 
-/* Responsive Design */
-
-@media (min-width: 420px) {
-  .quiz-container {
-    padding: 1rem; /* Maintain consistency */
-  }
-
-  .app-container {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust grid for larger screens */
-    gap: 1rem; /* Slightly larger gaps */
-  }
-
-  .quiz-container {
-    padding: 1em
-  }
-
-  .replay-btn, .check-answers-btn {
-    padding: 0.8em, 1.5em;
-  }
-
-  /* .replay-container {
-    justify-content: center;
-  } */
-}
-
-@media (min-width: 768px) { /* For tablets and laptops */
-  .quiz-container {
-    padding: 2em;
-  }
-
-  body {
-    background-position: right 130% top 130%, left 10% top 20%;
-  }
-
-  .replay-btn {
-    padding: 1em 2em;
-  }
-}
-
 /* BUTTONS */
 
 .check-answers-btn {
@@ -102,6 +86,7 @@ h1, h2, h3, h4, p {
   font-size: 1rem; /* Ensure readable text */
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
+  margin-top: 1rem;
 }
 
 .check-answers-btn:hover, 
@@ -118,13 +103,30 @@ h1, h2, h3, h4, p {
 }
 
 @media (min-width: 420px) {
-  .check-answers-btn,
-  .replay-btn {
-    padding: 1rem 2rem;
+  .quiz-container {
+    padding: 1rem; /* Maintain consistency */
+  }
+
+  .app-container {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust grid for larger screens */
+    gap: 1rem; /* Slightly larger gaps */
+  }
+
+  .replay-btn, 
+  .check-answers-btn {
+    padding: 0.8em, 1.5em;
   }
 }
 
 @media (min-width: 768px) {
+  body {
+    background-position: top 10% right 10%, bottom 10% left 10%;
+  }
+
+  .quiz-container {
+    padding: 2em;
+  }
+
   .check-answers-btn,
   .replay-btn {
     padding: 0.7rem 1.8rem; /* Slightly larger buttons for desktops */
