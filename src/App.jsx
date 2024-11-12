@@ -41,6 +41,7 @@ export default function App() {
   }
 
   async function fetchQuizData(urlStr){
+    setLoading(true);
     try {
       const res = await fetch(urlStr)
       const data = await res.json()
@@ -189,7 +190,8 @@ export default function App() {
 
   return (
     <>
-      {loading ? <LoadingIndicator /> : renderQuiz()}
+      {loading && <LoadingIndicator />} {/* Spinner appears during loading */}
+      {!loading && renderQuiz()} {/* Render quiz or start screen */}
     </>
   );
   
